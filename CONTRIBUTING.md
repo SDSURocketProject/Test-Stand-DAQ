@@ -12,7 +12,9 @@ The name of your PR should be short and descriptive of the issue your branch add
 - Select an issue to work on @ <https://github.com/SDSURocketProject/Test-Stand-DAQ/issues> 
 
 - Clone the repo to your local computer. 
-	-git clone <https://github.com/SDSURocketProject/Test-Stand-DAQ.git>
+	```
+	git clone <https://github.com/SDSURocketProject/Test-Stand-DAQ.git>
+	```
 
 - Create a new branch with a name that describes the issue you're working on.
 	- git branch "nameofbranch"
@@ -47,3 +49,5 @@ The name of your PR should be short and descriptive of the issue your branch add
 	- Working in a fork rather than a branch prevents unneccesary clutter in the base repo.
 	- Forks are NOT for contributions or fixing issues, but to introduce major changes and more personal projects and experiments.
 
+- .gitignore
+	-This file is used to specify what will be staged for commit automatically when executing the git add . or git add -A commands. For example, adding "stuff/" to the .gitignore file will ignore and NOT push any folders labled 'stuff/'
