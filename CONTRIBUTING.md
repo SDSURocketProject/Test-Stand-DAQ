@@ -9,7 +9,7 @@ This allows us to accept/reject PRs on a feature-by-feature basis without having
 The name of your PR should be short and descriptive of the issue your branch addresses.
 
 ### How to Contribute
-- Select an issue to work on [here](https://github.com/SDSURocketProject/Test-Stand-DAQ/issues)
+- Select an issue to work on from the list [here](https://github.com/SDSURocketProject/Test-Stand-DAQ/issues)
 
 - Clone the repo to your local computer. 
 	```
@@ -17,24 +17,24 @@ The name of your PR should be short and descriptive of the issue your branch add
 	```
 - Create a new branch with a name that describes the issue you're working on.
 	```
-	git branch <nameofbranch>
+	git branch <branchname>
 	```
 
 - Switch to the branch you created and start working on issue. 
 	```
-	git checkout <nameofbranch>
+	git checkout <branchname>
 	```
 
 - Ensure to periodically commit and push changes to your local repository to save your work to the online git repository.
 	``` 
 	git add <filename(s)>
-	git commit -m <commit message>
-	git push origin <branch name>
+	git commit -m <message>
+	git push origin <branchname>
 	```
 
-- When you're finished making changes to your branch submit a new pull request that merges your branch into master [here](https://github.com/SDSURocketProject/Test-Stand-DAQ/pulls)
+- When you're finished making changes to your branch, submit a new pull request to merge your branch into master [here](https://github.com/SDSURocketProject/Test-Stand-DAQ/pulls)
 
-- Ensure pull request is approvied by reviewers or the person who posted the issue you're working on, then merge the branch with the master branch and delete the old branch.
+- Ensure your pull request is approved by a reviewer, usually someone related to the content of your PR, then merge the branch with master and delete your old branch.
 
 # Glossary
 - Issues
@@ -51,7 +51,7 @@ The name of your PR should be short and descriptive of the issue your branch add
 
 - Fork
 	- A fork is a clone of the main repository to your personal git hub account.
-	- Working in a fork rather than a branch prevents unneccesary clutter in the base repo.
+	- Working in a fork rather than a branch prevents unnecessary clutter in the base repo.
 	- Forks are NOT for contributions or fixing issues, but to introduce major changes and more personal projects and experiments.
 
 - .gitignore
