@@ -9,7 +9,7 @@ This allows us to accept/reject PRs on a feature-by-feature basis without having
 The name of your PR should be short and descriptive of the issue your branch addresses.
 
 ### How to Contribute
-- Select an issue to work on @ <https://github.com/SDSURocketProject/Test-Stand-DAQ/issues> 
+- Select an issue to work on [here](https://github.com/SDSURocketProject/Test-Stand-DAQ/issues)
 
 - Clone the repo to your local computer. 
 	```
@@ -27,9 +27,12 @@ The name of your PR should be short and descriptive of the issue your branch add
 
 - Ensure to periodically commit and push changes to your local repository to save your work to the online git repository.
 	``` 
-	git add . && git commit -m "description of change/commit" && git push origin "nameofbranch"
+	git add <filename(s)>
+	git commit -m <commit message>
+	git push origin <branch name>
+	```
 
-- When you're finished making changes to your branch submit a new pull request that merges your branch into master <https://github.com/SDSURocketProject/Test-Stand-DAQ/pulls>
+- When you're finished making changes to your branch submit a new pull request that merges your branch into master [here](https://github.com/SDSURocketProject/Test-Stand-DAQ/pulls)
 
 - Ensure pull request is approvied by reviewers or the person who posted the issue you're working on, then merge the branch with the master branch and delete the old branch.
 
@@ -52,4 +55,4 @@ The name of your PR should be short and descriptive of the issue your branch add
 	- Forks are NOT for contributions or fixing issues, but to introduce major changes and more personal projects and experiments.
 
 - .gitignore
-	-This file is used to specify what will be staged for commit automatically when executing the git add . or git add -A commands. For example, adding "stuff/" to the .gitignore file will ignore and NOT push any folders labled 'stuff/'
+	- This file is used to specify what will be staged for commit automatically when executing the `git add` or `git add -A` commands. For example, adding "stuff/" to the .gitignore file will ignore and NOT stage any folders labled 'stuff/'
