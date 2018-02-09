@@ -27,7 +27,7 @@ The name of your PR should be short and descriptive of the issue your branch add
 
 - Ensure to periodically commit and push changes to your local repository to save your work to the online git repository.
 	``` 
-	git add . && git commit -m "description of change/commit" && git push origin "nameofbranch" ```
+	git add . && git commit -m "description of change/commit" && git push origin "nameofbranch"
 
 - When you're finished making changes to your branch submit a new pull request that merges your branch into master <https://github.com/SDSURocketProject/Test-Stand-DAQ/pulls>
 
