@@ -1,7 +1,7 @@
 import piplates.RELAYplate as RELAY
 import paho.mqtt.client as mqtt
 
-HOST = "192.168.1.132"	
+HOST = "192.168.1.132"
 TOPIC_1 = "Valve_Commands"
 TOPIC_2 = "Valve_Readings"
 
@@ -11,6 +11,7 @@ print ("Waiting to establish connection........ \n")
 
 def on_connect(client, userdata, flags, rc):
 	print("Connected with result code "+str(rc))
+	client.subscribe(TOPIC_1)
 	error = rc
 	return error
 
@@ -27,7 +28,6 @@ client.on_message = on_message
 #client.on_publish = on_publish
 client.on_disconnect = on_disconnect
 client.connect(HOST, 1883, 60)
-client.subscribe(TOPIC_1)
 
 print ("Connection established.")
 #print ('Connection address: ',addr)
@@ -49,83 +49,165 @@ print ("Awaiting commands... \n")
 #logging.basicConfig(filename=logname, level=logging.DEBUG)
 
 
-def relay1_on():
+def lox_hi_open():
 	RELAY.relayON(0,1)
-	print("Relay 1 ON")
-	client.publish(TOPIC_2,"Relay_1_ON.")
+	print("LOX HI OPENED")
+	client.publish(TOPIC_2,b'LOXHIOPEN')
 	return
 
-def relay2_on():
-	RELAY.relayON(0,2)
-	print("Relay 2 ON")
-	client.publish(TOPIC_2,b"Relay_2_ON.")
-	return
-
-def relay3_on():
+def meth_hi_open():
 	RELAY.relayON(0,3)
-	print("Relay 3 ON")
-	client.publish(TOPIC_2,b"Relay_3_ON.")
+	print("METH HI OPENED")
+	client.publish(TOPIC_2,b'METHHIOPEN')
 	return
 
-def relay4_on():
-	RELAY.relayON(0,4)
-	print("Relay 4 ON")
-	client.publish(TOPIC_2,b"Relay_4_ON.")
-	return
-
-def relay5_on():
-	RELAY.relayON(0,5)
-	print("Relay 5 ON")
-	client.publish(TOPIC_2,b"Relay_5_ON.")
-	return
-
-def relay6_on():
-	RELAY.relayON(0,6)
-	print("Relay 6 ON")
-	client.publish(TOPIC_2,b"Relay_6_ON.")
-	return
-
-def relay1_off():
-	RELAY.relayOFF(0,1)
-	print("Relay 1 OFF")
-	client.publish(TOPIC_2,b"Relay_1_OFF.")
-	return
-
-def relay2_off():
+def meth_vent_open():
 	RELAY.relayOFF(0,2)
-	print("Relay 2 OFF")
-	client.publish(TOPIC_2,b"Relay_2_OFF.")
+	print("METH VENT OPENED")
+	client.publish(TOPIC_2,b'METHVENTOPEN')
 	return
 
-def relay3_off():
-	RELAY.relayOFF(0,3)
-	print("Relay 3 OFF")
-	client.publish(TOPIC_2,b"Relay_3_OFF.")
-	return
-
-def relay4_off():
+def lox_vent_open():
 	RELAY.relayOFF(0,4)
-	print("Relay 4 OFF")
-	client.publish(TOPIC_2,b"Relay_4_OFF.")
+	print("LOX VENT OPENED")
+	client.publish(TOPIC_2,b'LOXVENTOPEN')
 	return
 
-def relay5_off():
+def meth_mpv_open():
+	RELAY.relayON(0,5)
+	print("METH MPV OPENED")
+	client.publish(TOPIC_2,b'METHMPVOPEN')
+	return
+
+def lox_mpv_open():
+	RELAY.relayON(0,6)
+	print("LOX MPV OPENED")
+	client.publish(TOPIC_2,b'LOXMPVOPEN')
+	return
+
+def purge_open():
+	RELAY.relayON(1,1)
+	print("PURGE OPENED")
+	client.publish(TOPIC_2,b'PURGEOPEN')
+	return
+
+def vents_open():
+	RELAY.relayOFF(0,2)
+	RELAY.relayOFF(0,4)
+	print("VENTS OPENED")
+	client.publish(TOPIC_2,b'VENTSOPEN')
+	return
+
+def main_open():
+	RELAY.relayON(0,5)
+	RELAY.relayON(0,6)
+	print("MPV OPENED")
+	client.publish(TOPIC_2,b'MAINOPEN')
+	return
+
+def ignite_on():
+	RELAY.relayON(1,2)
+	print("IGNITOR ON")
+	client.publish(TOPIC_2,b'IGNITEON')
+	return
+
+def relay7_on():
+	RELAY.relayON(0,7)
+	print("Relay 7 ON")
+	client.publish(TOPIC_2,b'R7ON')
+	return
+
+def lox_hi_close():
+	RELAY.relayOFF(0,1)
+	print("LOX HI CLOSED")
+	client.publish(TOPIC_2,b'LOXHICLOSE')
+	return
+
+def meth_hi_close():
+	RELAY.relayOFF(0,3)
+	print("METH HI CLOSED")
+	client.publish(TOPIC_2,b'METHHICLOSE')
+	return
+
+def meth_vent_close():
+	RELAY.relayON(0,2)
+	print("METH VENT CLOSED")
+	client.publish(TOPIC_2,b'METHVENTCLOSE')
+	return
+
+def lox_vent_close():
+	RELAY.relayON(0,4)
+	print("LOX VENT CLOSED")
+	client.publish(TOPIC_2,b'LOXVENTCLOSE')
+	return
+
+def meth_mpv_close():
 	RELAY.relayOFF(0,5)
-	print("Relay 5 OFF")
-	client.publish(TOPIC_2,b"Relay_5_OFF.")
+	print("METH MPV CLOSED")
+	client.publish(TOPIC_2,b'METHMPVCLOSE')
 	return
 
-def relay6_off():
+def lox_mpv_close():
 	RELAY.relayOFF(0,6)
-	print("Relay 6 OFF")
-	client.publish(TOPIC_2,b"Relay_6_OFF.")
+	print("LOX MPV CLOSED")
+	client.publish(TOPIC_2,b'LOXMPVCLOSE')
 	return
 
-def	send_pressures(data):
-	client.publish(TOPIC_3,str(data))
+def purge_close():
+	RELAY.relayOFF(1,1)
+	print("PURGE CLOSED")
+	client.publish(TOPIC_2,b'PURGECLOSE')
 	return
 
+def vents_close():
+	RELAY.relayON(0,2)
+	RELAY.relayON(0,4)
+	print("VENTS CLOSED")
+	client.publish(TOPIC_2,b'VENTSCLOSE')
+	return
 
+def main_close():
+	RELAY.relayOFF(0,5)
+	RELAY.relayOFF(0,6)
+	print("MPV CLOSED")
+	client.publish(TOPIC_2,b'MAINCLOSE')
+	return
+
+def ignite_off():
+	RELAY.relayOFF(1,2)
+	print("IGNITOR OFF")
+	client.publish(TOPIC_2,b'IGNITEOFF')
+	return
+
+def relay7_off():
+	RELAY.relayOFF(0,7)
+	print("Relay 7 OFF")
+	client.publish(TOPIC_2,b'R7OFF')
+	return
+
+def launch():
+	RELAY.relayON(0,5)
+	RELAY.relayON(0,6)
+	print("MPV OPENED")
+	client.publish(TOPIC_2,b'MAINOPEN')
+	return
+
+def abort():
+	#HI need to close, mpvs need to close, vents need to open, and ignitor off
+	RELAY.relayOFF(0,1)
+	RELAY.relayOFF(0,3)
+	RELAY.relayOFF(0,5)
+	RELAY.relayOFF(0,6)
+	RELAY.relayOFF(0,2)
+	RELAY.relayOFF(0,4)
+	print("ABORT")
+	client.publish(TOPIC_2,b'ABORT')
+	return
+
+def relay_state():
+	states = RELAY.relaySTATE(0)
+	print(states)
+	client.publish(TOPIC_2,str(states))
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
 # Main Loop
@@ -137,58 +219,114 @@ def	send_pressures(data):
 # function listed above. If sensor information is requested, new threads are started that
 # use the target function specified to send sensor information back to the client software.
 
+'''
+#########RELAYS###########
+relay 1: LOX HI VALVE
+relay 2: METH HI VALVE
+relay 3: METH VENT VALVE
+relay 4: LOX VENT VALVE
+relay 5: METH MPV
+relay 6: LOX MPV
+relay 7: Nothing
+relay 8: PURGE
+'''
 
 def calldata(data):
-	print(data)
-	if 'ducers' in data:
-		send_pressures(str(data))
 
-	elif 'relay1_open' in data:
-		print ("Received data: ",data)
-		relay1_on()
+	print("data is {}".format(data))
 
-	elif 'relay2_open' in data:
+	if 'LOX_HI_open' in data:
 		print ("Received data: ",data)
-		relay2_on()
+		lox_hi_open()
 
-	elif 'relay3_open' in data:
+	elif 'METH_HI_open' in data:
 		print ("Received data: ",data)
-		relay3_on()
+		meth_hi_open()
 
-	elif 'relay4_open' in data:
+	elif 'METH_VENT_open' in data:
 		print ("Received data: ",data)
-		relay4_on()
+		meth_vent_open()
 
-	elif 'relay5_open' in data:
+	elif 'LOX_VENT_open' in data:
 		print ("Received data: ",data)
-		relay5_on()
+		lox_vent_open()
 
-	elif 'relay6_open' in data:
+	elif 'METH_MPV_open' in data:
 		print ("Received data: ",data)
-		relay6_on()
+		meth_mpv_open()
 
-	elif 'relay1_close' in data:
+	elif 'LOX_MPV_open' in data:
 		print ("Received data: ",data)
-		relay1_off()
+		lox_mpv_open()
 
-	elif 'relay2_close' in data:
+	elif 'PURGE_open' in data:
 		print ("Received data: ",data)
-		relay2_off()
+		purge_open()
 
-	elif 'relay3_close' in data:
+	elif 'VENTS_open' in data:
 		print ("Received data: ",data)
-		relay3_off()
+		vents_open()
 
-	elif 'relay4_close' in data:
+	elif 'MAIN_open' in data:
 		print ("Received data: ",data)
-		relay4_off()
+		main_open()
 
-	elif 'relay5_close' in data:
+	elif 'IGNITE_on' in data:
 		print ("Received data: ",data)
-		relay5_off()
+		ignite_on()
 
-	elif 'relay6_close' in data:
+	elif 'relay7_open' in data:
 		print ("Received data: ",data)
-		relay6_off()
+		relay7_on()
+
+	elif 'LOX_HI_close' in data:
+		print ("Received data: ",data)
+		lox_hi_close()
+
+	elif 'METH_HI_close' in data:
+		print ("Received data: ",data)
+		meth_hi_close()
+
+	elif 'METH_VENT_close' in data:
+		print ("Received data: ",data)
+		meth_vent_close()
+
+	elif 'LOX_VENT_close' in data:
+		print ("Received data: ",data)
+		lox_vent_close()
+
+	elif 'METH_MPV_close' in data:
+		print ("Received data: ",data)
+		meth_mpv_close()
+
+	elif 'LOX_MPV_close' in data:
+		print ("Received data: ",data)
+		lox_mpv_close()
+
+	elif 'PURGE_close' in data:
+		print ("Received data: ",data)
+		purge_close()
+
+	elif 'VENTS_close' in data:
+		print ("Received data: ",data)
+		vents_close()
+
+	elif 'MAIN_close' in data:
+		print ("Received data: ",data)
+		main_close()
+
+	elif 'IGNITE_off' in data:
+		print ("Received data: ",data)
+		ignite_off()
+
+	elif 'abort' in data:
+		print ("Received data: ",data)
+		abort()
+
+	elif 'relay7_close' in data:
+		print ("Received data: ",data)
+		relay7_off()
+
 
 client.loop_forever()
+print("testing again")
