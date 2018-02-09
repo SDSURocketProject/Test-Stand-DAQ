@@ -13,19 +13,21 @@ The name of your PR should be short and descriptive of the issue your branch add
 
 - Clone the repo to your local computer. 
 	```
-	git clone <https://github.com/SDSURocketProject/Test-Stand-DAQ.git>
+	git clone https://github.com/SDSURocketProject/Test-Stand-DAQ.git
+	```
+- Create a new branch with a name that describes the issue you're working on.
+	```
+	git branch "nameofbranch"
 	```
 
-- Create a new branch with a name that describes the issue you're working on.
-	- git branch "nameofbranch"
-
 - Switch to the branch you created and start working on issue. 
-	- git checkout "nameofbranch"
-
+	```
+	git checkout "nameofbranch"
+	```
 - Ensure to periodically commit and push changes to your local repository to save your work to the online git repository.
-	- git add .
-	- git commit -m "description of change/commit"
-	- git push origin "nameofbranch"
+	``` git add . ```
+	``` git commit -m "description of change/commit" ```
+	``` git push origin "nameofbranch" ```
 
 - When you're finished making changes to your branch submit a new pull request @ <https://github.com/SDSURocketProject/Test-Stand-DAQ/pulls> that merges your branch into master 
 
