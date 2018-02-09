@@ -17,12 +17,12 @@ The name of your PR should be short and descriptive of the issue your branch add
 	```
 - Create a new branch with a name that describes the issue you're working on.
 	```
-	git branch "nameofbranch"
+	git branch <nameofbranch>
 	```
 
 - Switch to the branch you created and start working on issue. 
 	```
-	git checkout "nameofbranch"
+	git checkout <nameofbranch>
 	```
 
 - Ensure to periodically commit and push changes to your local repository to save your work to the online git repository.
