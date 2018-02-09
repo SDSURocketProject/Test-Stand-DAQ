@@ -1,0 +1,1 @@
+INFO:root:Ignitor 1 lit: Mon, 30 Jan 2017 16:15:55
