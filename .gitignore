@@ -82,6 +82,10 @@ celerybeat-schedule
 # SageMath parsed files
 *.sage.py
 
+# env 
+.vscode/
+.vscode
+
 # dotenv
 .env
 
