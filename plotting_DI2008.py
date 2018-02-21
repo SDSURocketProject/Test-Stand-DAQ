@@ -1,3 +1,12 @@
+'''Christian Engelbrecht
+20/21/2018
+
+This code is specifically tailored to the csv outputs of the DI-2008 data acquisition units in use with SDSU RP
+on the test stand, aka jetpack.
+
+'''
+
+
 import csv
 import matplotlib.pyplot as plt 
 import sys 
