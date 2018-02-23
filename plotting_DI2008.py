@@ -1,8 +1,19 @@
+#! /usr/bin/env python2.7
+
 '''Christian Engelbrecht
-20/21/2018
+23/02/2018
 
 This code is specifically tailored to the csv outputs of the DI-2008 data acquisition units in use with SDSU RP
 on the test stand, aka jetpack.
+
+Please provide one csv file as a command line argument when calling this script. i.e. in the command prompt or terminal:
+python plotting_DI2008.py <name of data file> 
+
+
+IMPORTANT!! 
+When exporting the csvs from WinDAQs waveform browser, you must select:
+
+User Annotations, Engineering Units, Sample Rate, Date and Time, and Relative Time 
 
 '''
 
