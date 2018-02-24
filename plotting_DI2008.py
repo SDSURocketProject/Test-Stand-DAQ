@@ -1,4 +1,4 @@
-#! /usr/bin/env python2.7
+#! /usr/env/python3
 
 '''Christian Engelbrecht
 23/02/2018
@@ -26,14 +26,21 @@ from collections import Counter
 doc = sys.argv[1:]
 
 if len(doc) > 1:
+
 	print("Too long! Exiting program. Plot one at a time please.")
+	sys.exit()
+
+elif len(doc) == 0: 
+
+	print("No arguments provded. Please give me one csv to plot" )
 	sys.exit()
 
 print("Plotting this file: {}".format(doc))
 
 file = doc[0]
 
-with open(file,'rb') as csvfile:
+#with open(file,'rb') as csvfile:
+with open(file, newline = '') as csvfile:
 
 	csvreader = csv.reader(csvfile)
 
@@ -58,7 +65,7 @@ EUs = []
 print("Found these units to plot:")
 
 for EU in EUs_counter:
-	print EU
+	print(EU)
 	EUs.append(EU)
 
 #Plot one EU at a time 
