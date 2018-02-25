@@ -75,13 +75,13 @@ def lox_vent_open():
 	return
 
 def meth_mpv_open():
-	RELAY.relayON(0,5)
+	RELAY.relayON(0,6)
 	print("METH MPV OPENED")
 	client.publish(TOPIC_2,b'METHMPVOPEN')
 	return
 
 def lox_mpv_open():
-	RELAY.relayON(0,6)
+	RELAY.relayON(0,5)
 	print("LOX MPV OPENED")
 	client.publish(TOPIC_2,b'LOXMPVOPEN')
 	return
@@ -100,8 +100,9 @@ def vents_open():
 	return
 
 def main_open():
-	RELAY.relayON(0,5)
 	RELAY.relayON(0,6)
+	time.sleep(0.5)
+	RELAY.relayON(0,5)
 	print("MPV OPENED")
 	client.publish(TOPIC_2,b'MAINOPEN')
 	return
@@ -143,13 +144,13 @@ def lox_vent_close():
 	return
 
 def meth_mpv_close():
-	RELAY.relayOFF(0,5)
+	RELAY.relayOFF(0,6)
 	print("METH MPV CLOSED")
 	client.publish(TOPIC_2,b'METHMPVCLOSE')
 	return
 
 def lox_mpv_close():
-	RELAY.relayOFF(0,6)
+	RELAY.relayOFF(0,5)
 	print("LOX MPV CLOSED")
 	client.publish(TOPIC_2,b'LOXMPVCLOSE')
 	return
@@ -168,9 +169,9 @@ def vents_close():
 	return
 
 def main_close():
-	RELAY.relayOFF(0,6)
-	time.sleep(0.5)
 	RELAY.relayOFF(0,5)
+	time.sleep(0.5)
+	RELAY.relayOFF(0,6)
 	print("MPV CLOSED")
 	client.publish(TOPIC_2,b'MAINCLOSE')
 	return
@@ -188,8 +189,9 @@ def relay7_off():
 	return
 
 def launch():
-	RELAY.relayON(0,5)
 	RELAY.relayON(0,6)
+	time.sleep(0.5)
+	RELAY.relayON(0,5)
 	print("MPV OPENED")
 	client.publish(TOPIC_2,b'MAINOPEN')
 	return
