@@ -199,17 +199,17 @@ class Client(QMainWindow):
 		self.meth_hi_open_btn = createButton(self,'CH4 HI Open',20,515,270,70,False,self.font2,self.meth_hi_open_app,'icon.png',100,100)
 		self.meth_hi_close_btn = createButton(self,'CH4 HI Close',300,515,270,70,False,self.font2,self.meth_hi_close_app,'icon.png',100,100)
 
-		self.meth_vent_open_btn = createButton(self,'CH4 Vent Open',20,590,270,70,True,self.font2,self.meth_vent_open_app,'icon.png',100,100)
-		self.meth_vent_close_btn = createButton(self,'CH4 Vent Close',300,590,270,70,False,self.font2,self.meth_vent_close_app,'icon.png',100,100)
+		self.meth_vent_open_btn = createButton(self,'CH4 Vent Open',20,740,270,70,True,self.font2,self.meth_vent_open_app,'icon.png',100,100)
+		self.meth_vent_close_btn = createButton(self,'CH4 Vent Close',300,740,270,70,False,self.font2,self.meth_vent_close_app,'icon.png',100,100)
 
-		self.lox_vent_open_btn = createButton(self,'LOX Vent Open',20,665,270,70,True,self.font2,self.lox_vent_open_app,'icon.png',100,100)
-		self.lox_vent_close_btn = createButton(self,'LOX Vent Close',300,665,270,70,False,self.font2,self.lox_vent_close_app,'icon.png',100,100)
+		self.lox_vent_open_btn = createButton(self,'LOX Vent Open',20,815,270,70,True,self.font2,self.lox_vent_open_app,'icon.png',100,100)
+		self.lox_vent_close_btn = createButton(self,'LOX Vent Close',300,815,270,70,False,self.font2,self.lox_vent_close_app,'icon.png',100,100)
 
-		self.meth_mpv_open_btn = createButton(self,'CH4 MPV Open',20,740,270,70,True,self.font2,self.meth_mpv_open_app,'icon.png',100,100)
-		self.meth_mpv_close_btn = createButton(self,'CH4 MPV Close',300,740,270,70,False,self.font2,self.meth_mpv_close_app,'icon.png',100,100)
+		self.meth_mpv_open_btn = createButton(self,'CH4 MPV Open',20,590,270,70,False,self.font2,self.meth_mpv_open_app,'icon.png',100,100)
+		self.meth_mpv_close_btn = createButton(self,'CH4 MPV Close',300,590,270,70,False,self.font2,self.meth_mpv_close_app,'icon.png',100,100)
 
-		self.lox_mpv_open_btn = createButton(self,'LOX MPV Open',20,815,270,70,True,self.font2,self.lox_mpv_open_app,'icon.png',100,100)	
-		self.lox_mpv_close_btn = createButton(self,'LOX MPV Close',300,815,270,70,False,self.font2,self.lox_mpv_close_app,'icon.png',100,100)
+		self.lox_mpv_open_btn = createButton(self,'LOX MPV Open',20,665,270,70,False,self.font2,self.lox_mpv_open_app,'icon.png',100,100)	
+		self.lox_mpv_close_btn = createButton(self,'LOX MPV Close',300,665,270,70,False,self.font2,self.lox_mpv_close_app,'icon.png',100,100)
 
 		self.vents_open_btn = createButton(self,'Vents Open',20,890,270,70,True,self.font2,self.vents_open_app,'icon.png',100,100)  
 		self.vents_close_btn = createButton(self,'Vents Close',300,890,270,70,False,self.font2,self.vents_close_app,'icon.png',100,100)
@@ -221,8 +221,8 @@ class Client(QMainWindow):
 		self.loadcell_btn = createButton(self,'Start Load Cell',20,205,270,70,True,self.font5,self.loadcell_app,'icon.png',100,100)
 		#self.loadcell_tare_btn = createButton(self,'Tare Load Cell',5,290,270,70,True,self.font5,self.loadcelltare_app,'icon.png',100,100)
 
-		self.ignitor_on_btn = createButton(self,'Ignitor On',370,205,270,70,False,self.font2,self.ignitor_on_app,'icon.png',100,100)
-		self.ignitor_off_btn = createButton(self,'Ignitor Off',650,205,270,70,False,self.font2,self.ignitor_off_app,'icon.png',100,100)
+		self.dump_open_btn = createButton(self,'Dump Valve Open',370,205,270,70,False,self.font2,self.dump_open_app,'icon.png',100,100)
+		self.dump_close_btn = createButton(self,'Dump Valve Close',650,205,270,70,False,self.font2,self.dump_close_app,'icon.png',100,100)
 
 		self.purge_open_btn = createButton(self,'Purge Open',370,130,270,70,True,self.font2,self.purge_open_app,'icon.png',100,100)
 		self.purge_close_btn= createButton(self,'Purge Close',650,130,270,70,False,self.font2,self.purge_close_app,'icon.png',100,100)
@@ -356,17 +356,17 @@ class Client(QMainWindow):
 		elif self.connection_status == False:
 			QMessageBox.information(self, 'Connection Results', 'You are not connected, please connect and try again.')
 
-	def ignitor_on_app(self):
+	def dump_open_app(self):
 		if self.connection_status == True:
-			logger.debug("Ignitor On at {}".format(time.strftime("(%H:%M:%S)", time.localtime())))
-			self.send_info('ion')
+			logger.debug("Dump Open at {}".format(time.strftime("(%H:%M:%S)", time.localtime())))
+			self.send_info('dopen')
 		elif self.connection_status == False:
 			QMessageBox.information(self, 'Connection Results', 'You are not connected, please connect and try again.')
 
-	def ignitor_off_app(self):
+	def dump_close_app(self):
 		if self.connection_status == True:
-			logger.debug("Ignitor Off at {}".format(time.strftime("(%H:%M:%S)", time.localtime())))
-			self.send_info('ioff')
+			logger.debug("Dump Close at {}".format(time.strftime("(%H:%M:%S)", time.localtime())))
+			self.send_info('dclose')
 		elif self.connection_status == False:
 			QMessageBox.information(self, 'Connection Results', 'You are not connected, please connect and try again.')
 
@@ -402,6 +402,8 @@ class Client(QMainWindow):
 				self.abort_btn.setEnabled(True)
 				self.lox_hi_open_btn.setEnabled(True)
 				self.meth_hi_open_btn.setEnabled(True)
+				self.lox_mpv_open_btn.setEnabled(True)
+				self.meth_mpv_open_btn.setEnabled(True)
 				self.arm_status = True
 				self.safteyread.setText("OFF")
 			elif self.arm_status == True:
@@ -411,6 +413,8 @@ class Client(QMainWindow):
 				self.abort_btn.setEnabled(False)
 				self.lox_hi_open_btn.setEnabled(False)
 				self.meth_hi_open_btn.setEnabled(False)
+				self.lox_mpv_open_btn.setEnabled(False)
+				self.meth_mpv_open_btn.setEnabled(False)
 				self.arm_status = False
 				self.safteyread.setText("ON")
 		elif self.connection_status == False:
@@ -545,12 +549,12 @@ class Client(QMainWindow):
 		elif command == 'mc':
 			message = b'MAIN_close'
 			logger.debug("Main Close at {}".format(time.asctime()))
-		elif command == 'ion':
-			message = b'IGNITE_on'
-			logger.debug("Ignitor On at {}".format(time.asctime()))
-		elif command == 'ioff':
-			message = b'IGNITE_off'
-			logger.debug("Ignitor Off at {}".format(time.asctime()))
+		elif command == 'dopen':
+			message = b'DUMP_open'
+			logger.debug("Dump Open at {}".format(time.asctime()))
+		elif command == 'dclose':
+			message = b'DUMP_close'
+			logger.debug("Dump Close at {}".format(time.asctime()))
 		elif command == 'abort':
 			message = b'abort'
 			logger.debug("aborting at {}".format(time.asctime()))
