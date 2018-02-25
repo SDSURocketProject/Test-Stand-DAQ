@@ -2,6 +2,7 @@ import sys
 import os
 import time
 import logging
+import re
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
 from PyQt5.QtCore import *
@@ -107,12 +108,12 @@ class Client(QMainWindow):
 
 		self.rocketlabel = createLabel(self, 'SDSU ROCKET PROJECT',0,25,500,50,20,True,self.paletteblack)
 		self.teststandlabel = createLabel(self, 'TEST STAND',0,73,300,50,20,True,self.paletteblack)
-		self.loadcelllabel = createLabel(self, '0',340,300,300,50,26,False,self.paletteblack)
+		self.loadcelllabel = createLabel(self, '0',380,300,300,50,26,False,self.paletteblack)
 		self.defineloadcell = createLabel(self, 'Load Cell Reading:',20,300,320,50,20,False,self.paletteblack)
 		self.valves = createLabel(self, 'Valves:',235,375,300,50,20,False,self.paletteblack)
-		self.breakwire = createLabel(self, 'BreakWire Reading: ',460,300,400,50,20,False,self.paletteblack)
-		self.bwireread = createLabel(self, 'Connect',800,300,400,50,20,False,self.paletteblack)
-		self.safteyread = createLabel(self, 'OFF',299,140,400,50,20,False,self.paletteblack)
+		#self.breakwire = createLabel(self, 'BreakWire Reading: ',460,300,400,50,20,False,self.paletteblack)
+		#self.bwireread = createLabel(self, 'Connect',800,300,400,50,20,False,self.paletteblack)
+		self.safteyread = createLabel(self, 'ON',299,140,400,50,20,False,self.paletteblack)
 		self.loadcellread = createLabel(self, 'OFF',299,215,400,50,20,False,self.paletteblack)
 
 	def Pictures(self):
@@ -132,10 +133,17 @@ class Client(QMainWindow):
 		self.load_cell = createPicture(self,'loadcell.png',self.testStandCenter-40,self.testStandDepth+740,80,87)
 		self.tank1 = createPicture(self,'tank.png',self.testStandCenter-266,self.testStandDepth,171,711)
 		self.tank2 = createPicture(self,'tank.png',self.testStandCenter+90,self.testStandDepth,171,711)
+		self.tank3 = createPicture(self,'heliumtank.png',self.testStandCenter-90,self.testStandDepth+380,171,300)
 		self.blue = createPicture(self,'blue.png',self.testStandCenter-203,718,47,0)
 		self.purple = createPicture(self,'purple.png',self.testStandCenter+90,718,47,0)
 		self.redtopborder = createPicture(self,'red.png',0,25,1980,50)
 		self.rocketlogo = createPicture(self,'rp2.png',self.testStandCenter-87.5,self.testStandDepth+95,175,91)
+		self.loxhivalve = createPicture(self,'hivalvered.png',self.testStandCenter-87.5,self.testStandDepth+220,60,45)
+		self.ch4hivalve = createPicture(self,'hivalvered.png',self.testStandCenter+14.5,self.testStandDepth+220,60,45)
+		self.loxventvalve = createPicture(self,'ventvalvered.png',self.testStandCenter-275.5,self.testStandDepth+360,90,68)
+		self.ch4ventvalve = createPicture(self,'ventvalvered.png',self.testStandCenter+182.5,self.testStandDepth+360,90,68)
+		self.ch4mpvvalve = createPicture(self,'mpvvalvered.png',self.testStandCenter+50,self.testStandDepth+650,90,68)
+		self.loxmpvvalve = createPicture(self,'mpvvalvered.png',self.testStandCenter-142,self.testStandDepth+650,90,68)
 		self.box = createPicture(self,'box.png',0,73,215,50)
 		self.border = createPicture(self,'border.png',13,431,564,159)
 		self.border2 = createPicture(self,'border2.png',13,585,564,155)
@@ -185,10 +193,10 @@ class Client(QMainWindow):
 
 		self.abort_btn = createButton(self,"Abort :'(",660,590,270,70,False,self.font2,self.abort_app,'icon.png',100,100)
 
-		self.lox_hi_open_btn = createButton(self,'LOX HI Open',20,440,270,70,True,self.font2,self.lox_hi_open_app,'icon.png',100,100)
+		self.lox_hi_open_btn = createButton(self,'LOX HI Open',20,440,270,70,False,self.font2,self.lox_hi_open_app,'icon.png',100,100)
 		self.lox_hi_close_btn = createButton(self,'LOX HI Close',300,440,270,70,False,self.font2,self.lox_hi_close_app,'icon.png',100,100)
 
-		self.meth_hi_open_btn = createButton(self,'CH4 HI Open',20,515,270,70,True,self.font2,self.meth_hi_open_app,'icon.png',100,100)
+		self.meth_hi_open_btn = createButton(self,'CH4 HI Open',20,515,270,70,False,self.font2,self.meth_hi_open_app,'icon.png',100,100)
 		self.meth_hi_close_btn = createButton(self,'CH4 HI Close',300,515,270,70,False,self.font2,self.meth_hi_close_app,'icon.png',100,100)
 
 		self.meth_vent_open_btn = createButton(self,'CH4 Vent Open',20,590,270,70,True,self.font2,self.meth_vent_open_app,'icon.png',100,100)
@@ -392,13 +400,19 @@ class Client(QMainWindow):
 				self.ignitor_on_btn.setEnabled(True)
 				self.mpv_open_btn.setEnabled(True)
 				self.abort_btn.setEnabled(True)
+				self.lox_hi_open_btn.setEnabled(True)
+				self.meth_hi_open_btn.setEnabled(True)
 				self.arm_status = True
+				self.safteyread.setText("OFF")
 			elif self.arm_status == True:
 				self.launch_btn.setEnabled(False)
 				self.ignitor_on_btn.setEnabled(False)
 				self.mpv_open_btn.setEnabled(False)
 				self.abort_btn.setEnabled(False)
+				self.lox_hi_open_btn.setEnabled(False)
+				self.meth_hi_open_btn.setEnabled(False)
 				self.arm_status = False
+				self.safteyread.setText("ON")
 		elif self.connection_status == False:
 			QMessageBox.information(self, 'Connection Results', 'You are not connected, please connect and try again.')
 
@@ -415,6 +429,7 @@ class Client(QMainWindow):
 		def VoltageRatioInputAttached(e):
 			print("Attached!")
 			self.phidget_status = True
+			self.loadcelllabel.setText("ON")
 
 		def VoltageRatioInputDetached(e):
 			print("Detached") 
@@ -426,7 +441,7 @@ class Client(QMainWindow):
 				self.voltlist.append(voltageRatio)
 				#print("VoltageRatio: %f" % voltageRatio)
 				self.loadcelllabel.setText((str(voltageRatio))[0:6])
-				logger.debug("                                                                                {} at {}".format(voltageRatio, time.asctime()))
+				logger.debug("load                                                                                {} at {}".format(voltageRatio, time.asctime()))
 			except:
 				voltageRatio = (877420*voltageRatio)
 				voltageZero.append(voltageRatio)
@@ -550,7 +565,7 @@ class Client(QMainWindow):
 		self.client.publish(self.TOPIC_1,message)
 
 	def get_info(self, data):
-		print(data)
+		#print(data)
 		# Receives information from the server and switches the label based on what the client is given
 		'''
 		#########RELAYS###########
@@ -568,36 +583,42 @@ class Client(QMainWindow):
 			self.logTextBox.append("  >  LOX HI OPEN!{}".format(time.strftime("\t     -\t(%H:%M:%S)", time.localtime())))
 			self.lox_hi_open_btn.setEnabled(False)
 			self.lox_hi_close_btn.setEnabled(True)
+			self.loxhivalve.setPixmap(QPixmap('pictures/hivalvegreen.png'))
 
 		elif 'METHHIOPEN' in data:
 			logger.debug("METH HI OPEN at {}".format(time.strftime("(%H:%M:%S)", time.localtime())))
 			self.logTextBox.append("  >  METH HI OPEN!{}".format(time.strftime("\t     -\t(%H:%M:%S)", time.localtime())))
 			self.meth_hi_open_btn.setEnabled(False)
 			self.meth_hi_close_btn.setEnabled(True)
+			self.ch4hivalve.setPixmap(QPixmap('pictures/hivalvegreen.png'))
 
 		elif 'METHVENTOPEN' in data:
 			logger.debug("METH VENT OPEN at {}".format(time.strftime("(%H:%M:%S)", time.localtime())))
 			self.logTextBox.append("  >  METH VENT OPEN!{}".format(time.strftime("\t     -\t(%H:%M:%S)", time.localtime())))
 			self.meth_vent_open_btn.setEnabled(False)
 			self.meth_vent_close_btn.setEnabled(True)
+			self.ch4ventvalve.setPixmap(QPixmap('pictures/ventvalvered.png'))
 
 		elif 'LOXVENTOPEN' in data:
 			logger.debug("LOX VENT OPEN at {}".format(time.strftime("(%H:%M:%S)", time.localtime())))
 			self.logTextBox.append("  >  LOX VENT OPEN!{}".format(time.strftime("\t     -\t(%H:%M:%S)", time.localtime())))
 			self.lox_vent_open_btn.setEnabled(False)
 			self.lox_vent_close_btn.setEnabled(True)
+			self.loxventvalve.setPixmap(QPixmap('pictures/ventvalvered.png'))
 
 		elif 'METHMPVOPEN' in data:
 			logger.debug("METH MPV OPEN at {}".format(time.strftime("(%H:%M:%S)", time.localtime())))
 			self.logTextBox.append("  >  METH MPV OPEN!{}".format(time.strftime("\t     -\t(%H:%M:%S)", time.localtime())))
 			self.meth_mpv_open_btn.setEnabled(False)
 			self.meth_mpv_close_btn.setEnabled(True)
+			self.ch4mpvvalve.setPixmap(QPixmap('pictures/mpvvalvered.png'))
 
 		elif 'LOXMPVOPEN' in data:
 			logger.debug("LOX MPV OPEN at {}".format(time.strftime("(%H:%M:%S)", time.localtime())))
 			self.logTextBox.append("  >  LOX MPV OPEN!{}".format(time.strftime("\t     -\t(%H:%M:%S)", time.localtime())))
 			self.lox_mpv_open_btn.setEnabled(False)
 			self.lox_mpv_close_btn.setEnabled(True)
+			self.loxmpvvalve.setPixmap(QPixmap('pictures/mpvvalvered.png'))
 
 		elif 'PURGEOPEN' in data:
 			logger.debug("PURGE OPEN at {}".format(time.strftime("(%H:%M:%S)", time.localtime())))
@@ -614,6 +635,8 @@ class Client(QMainWindow):
 			self.meth_vent_close_btn.setEnabled(True)
 			self.lox_vent_open_btn.setEnabled(False)
 			self.lox_vent_close_btn.setEnabled(True)
+			self.ch4ventvalve.setPixmap(QPixmap('pictures/ventvalvered.png'))
+			self.loxventvalve.setPixmap(QPixmap('pictures/ventvalvered.png'))
 
 		elif 'MAINOPEN' in data:
 			logger.debug("MAIN OPEN at {}".format(time.strftime("(%H:%M:%S)", time.localtime())))
@@ -624,6 +647,8 @@ class Client(QMainWindow):
 			self.meth_mpv_close_btn.setEnabled(True)
 			self.lox_mpv_open_btn.setEnabled(False)
 			self.lox_mpv_close_btn.setEnabled(True)
+			self.ch4mpvvalve.setPixmap(QPixmap('pictures/mpvvalvered.png'))
+			self.loxmpvvalve.setPixmap(QPixmap('pictures/mpvvalvered.png'))
 
 		elif 'IGNITEON' in data:
 			logger.debug("IGNITOR ON at {}".format(time.strftime("(%H:%M:%S)", time.localtime())))
@@ -642,36 +667,42 @@ class Client(QMainWindow):
 			self.logTextBox.append("  >  LOX HI CLOSE!{}".format(time.strftime("\t     -\t(%H:%M:%S)", time.localtime())))
 			self.lox_hi_open_btn.setEnabled(True)
 			self.lox_hi_close_btn.setEnabled(False)
+			self.loxhivalve.setPixmap(QPixmap('pictures/hivalvered.png'))
 
 		elif 'METHHICLOSE' in data:
 			logger.debug("METH HI CLOSE at {}".format(time.strftime("(%H:%M:%S)", time.localtime())))
 			self.logTextBox.append("  >  METH HI CLOSE!{}".format(time.strftime("\t     -\t(%H:%M:%S)", time.localtime())))
 			self.meth_hi_open_btn.setEnabled(True)
 			self.meth_hi_close_btn.setEnabled(False)
+			self.ch4hivalve.setPixmap(QPixmap('pictures/hivalvered.png'))
 
 		elif 'METHVENTCLOSE' in data:
 			logger.debug("METH VENT CLOSE at {}".format(time.strftime("(%H:%M:%S)", time.localtime())))
 			self.logTextBox.append("  >  METH VENT CLOSE!{}".format(time.strftime("\t     -\t(%H:%M:%S)", time.localtime())))
 			self.meth_vent_open_btn.setEnabled(True)
 			self.meth_vent_close_btn.setEnabled(False)
+			self.ch4ventvalve.setPixmap(QPixmap('pictures/ventvalvegreen.png'))
 
 		elif 'LOXVENTCLOSE' in data:
 			logger.debug("LOX VENT CLOSE at {}".format(time.strftime("(%H:%M:%S)", time.localtime())))
 			self.logTextBox.append("  >  LOX VENT CLOSE!{}".format(time.strftime("\t     -\t(%H:%M:%S)", time.localtime())))
 			self.lox_vent_open_btn.setEnabled(True)
 			self.lox_vent_close_btn.setEnabled(False)
+			self.loxventvalve.setPixmap(QPixmap('pictures/ventvalvegreen.png'))
 
 		elif 'METHMPVCLOSE' in data:
 			logger.debug("METH MPV CLOSE at {}".format(time.strftime("(%H:%M:%S)", time.localtime())))
 			self.logTextBox.append("  >  METH MPV CLOSE!{}".format(time.strftime("\t     -\t(%H:%M:%S)", time.localtime())))
 			self.meth_mpv_open_btn.setEnabled(True)
 			self.meth_mpv_close_btn.setEnabled(False)
+			self.ch4mpvvalve.setPixmap(QPixmap('pictures/mpvvalvegreen.png'))
 
 		elif 'LOXMPVCLOSE' in data:
 			logger.debug("LOX MPV CLOSE at {}".format(time.strftime("(%H:%M:%S)", time.localtime())))
 			self.logTextBox.append("  >  LOX MPV CLOSE!{}".format(time.strftime("\t     -\t(%H:%M:%S)", time.localtime())))
 			self.lox_mpv_open_btn.setEnabled(True)
 			self.lox_mpv_close_btn.setEnabled(False)
+			self.loxmpvvalve.setPixmap(QPixmap('pictures/mpvvalvegreen.png'))
 
 		elif 'PURGECLOSE' in data:
 			logger.debug("PURGE CLOSE at {}".format(time.strftime("(%H:%M:%S)", time.localtime())))
@@ -688,6 +719,8 @@ class Client(QMainWindow):
 			self.meth_vent_close_btn.setEnabled(False)
 			self.lox_vent_open_btn.setEnabled(True)
 			self.lox_vent_close_btn.setEnabled(False)
+			self.loxventvalve.setPixmap(QPixmap('pictures/ventvalvegreen.png'))
+			self.ch4ventvalve.setPixmap(QPixmap('pictures/ventvalvegreen.png'))
 
 		elif 'MAINCLOSE' in data:
 			logger.debug("MAIN CLOSE at {}".format(time.strftime("(%H:%M:%S)", time.localtime())))
@@ -698,6 +731,8 @@ class Client(QMainWindow):
 			self.meth_mpv_close_btn.setEnabled(False)
 			self.lox_mpv_open_btn.setEnabled(True)
 			self.lox_mpv_close_btn.setEnabled(False)
+			self.ch4mpvvalve.setPixmap(QPixmap('pictures/mpvvalvegreen.png'))
+			self.loxmpvvalve.setPixmap(QPixmap('pictures/mpvvalvegreen.png'))
 
 		elif 'IGNITEOFF' in data:
 			logger.debug("IGNITOR OFF at {}".format(time.strftime("(%H:%M:%S)", time.localtime())))
@@ -724,12 +759,74 @@ class Client(QMainWindow):
 			self.meth_hi_close_btn.setEnabled(False)
 			self.lox_hi_open_btn.setEnabled(True)
 			self.lox_hi_close_btn.setEnabled(False)
+			self.loxventvalve.setPixmap(QPixmap('pictures/ventvalvered.png'))
+			self.ch4ventvalve.setPixmap(QPixmap('pictures/ventvalvered.png'))
+			self.loxhivalve.setPixmap(QPixmap('pictures/hivalvered.png'))
+			self.ch4hivalve.setPixmap(QPixmap('pictures/hivalvered.png'))
+			self.ch4mpvvalve.setPixmap(QPixmap('pictures/mpvvalvered.png'))
+			self.loxmpvvalve.setPixmap(QPixmap('pictures/mpvvalvered.png'))
 
 		elif 'R7OFF' in data:
 			logger.debug("Relay_7_OFF at {}".format(time.strftime("(%H:%M:%S)", time.localtime())))
 			self.logTextBox.append("  >  Relay 7 OFF!{}".format(time.strftime("\t     -\t(%H:%M:%S)", time.localtime())))
 			self.so7_btn.setEnabled(True)
 			self.sc7_btn.setEnabled(False)
+
+		elif '0b' in data:
+			logger.debug("Relay States at {}".format(time.strftime("(%H:%M:%S)", time.localtime())))
+			#self.logTextBox.append("  >  Relay States are {}!{}".format(data, time.strftime("\t     -\t(%H:%M:%S)", time.localtime())))
+			self.relay_state(data)
+
+		elif 'BW-I' in data: # Breakwire Intact
+			logger.debug("Breakwire Intact at {}".format(time.strftime("(%A)", time.localtime())))
+
+		elif 'BW-B' in data: # Breakwire Broken
+			logger.debug("Breakwire Broken at {}".format(time.strftime("(%A)", time.localtime())))
+
+	'''def relay_state(self, data):
+		if len(data) > 6:
+			data = data[4:-1]
+			print("Relay States are: {}".format(data))
+			while len(data) < 7:
+				data = '0' + data
+			print(data[6])
+			print(data)
+			if data[6] == 0: 
+				self.get_info('LOXHIOPEN')
+				self.lox_hi_open_btn.setEnabled(False)
+			else: 
+				self.get_info('LOXHICLOSE')
+				self.lox_hi_open_btn.setEnabled(False)
+			if data[5] == 0:
+				self.get_info('METHVENTCLOSE')
+			else: 
+				self.get_info('METHVENTOPEN') 
+			if data[4] == 0: 
+				self.get_info('METHHIOPEN')
+				self.meth_hi_open_btn.setEnabled(False)
+			else: 
+				self.get_info('METHHICLOSE')
+				self.meth_hi_open_btn.setEnabled(False)
+			if data[3] == 0:
+				self.get_info('LOXVENTCLOSE')
+			else: 
+				self.get_info('LOXVENTOPEN')
+			if data[2] == 0: 
+				self.get_info('METHMPVOPEN')
+			else: 
+				self.get_info('METHMPVCLOSE')
+			if data[1] == 0:
+				self.get_info('LOXMPVOPEN')
+			else: 
+				self.get_info('LOXMPVCLOSE') 
+			if data[0] == 0: 
+				self.get_info('')
+			else: 
+				self.get_info('') 
+			print(data)
+		else:
+			print("Data Small")'''
+		
 
 
 	def paintEvent(self, e):
@@ -795,6 +892,7 @@ class Client(QMainWindow):
 		print("Connected with result code "+str(rc))
 		self.error = rc
 		self.connectionsymbol.setPixmap(QPixmap('pictures/pinggreen.png'))
+		self.connect_btn.setEnabled(False)
 		self.client.subscribe(self.TOPIC_2)
 		#self.client.publish(self.TOPIC_1,b'give_states')
 		return self.error
@@ -805,8 +903,8 @@ class Client(QMainWindow):
 		self.client.loop_stop()
 
 	def on_message(self, client, userdata, msg):
-		print(str(msg.payload))
 		self.get_info(str(msg.payload))
+		#self.relay_state(str(msg.payload))
 
 	def connect_app(self):
 

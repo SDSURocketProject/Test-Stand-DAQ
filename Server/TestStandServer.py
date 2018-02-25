@@ -1,5 +1,6 @@
 import piplates.RELAYplate as RELAY
 import paho.mqtt.client as mqtt
+import time
 
 HOST = "192.168.1.132"
 TOPIC_1 = "Valve_Commands"
@@ -167,8 +168,9 @@ def vents_close():
 	return
 
 def main_close():
-	RELAY.relayOFF(0,5)
 	RELAY.relayOFF(0,6)
+	time.sleep(0.5)
+	RELAY.relayOFF(0,5)
 	print("MPV CLOSED")
 	client.publish(TOPIC_2,b'MAINCLOSE')
 	return
@@ -196,18 +198,19 @@ def abort():
 	#HI need to close, mpvs need to close, vents need to open, and ignitor off
 	RELAY.relayOFF(0,1)
 	RELAY.relayOFF(0,3)
-	RELAY.relayOFF(0,5)
-	RELAY.relayOFF(0,6)
 	RELAY.relayOFF(0,2)
 	RELAY.relayOFF(0,4)
+	RELAY.relayOFF(0,6)
+	time.sleep(0.5)
+	RELAY.relayOFF(0,5)
 	print("ABORT")
 	client.publish(TOPIC_2,b'ABORT')
 	return
 
 def relay_state():
 	states = RELAY.relaySTATE(0)
-	print(states)
-	client.publish(TOPIC_2,str(states))
+	print(bin(states))
+	client.publish(TOPIC_2,str(bin(states)))
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
 # Main Loop
@@ -326,6 +329,10 @@ def calldata(data):
 	elif 'relay7_close' in data:
 		print ("Received data: ",data)
 		relay7_off()
+
+	elif 'give_states' in data:
+		print("Client Initialized, giving relay states")
+		relay_state()
 
 
 client.loop_forever()
