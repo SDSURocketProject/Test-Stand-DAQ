@@ -106,10 +106,10 @@ def main_open():
 	client.publish(TOPIC_2,b'MAINOPEN')
 	return
 
-def ignite_on():
-	RELAY.relayON(1,2)
-	print("IGNITOR ON")
-	client.publish(TOPIC_2,b'IGNITEON')
+def dump_open():
+	RELAY.relayON(0,7)
+	print("DUMP OPENED")
+	client.publish(TOPIC_2,b'DUMPOPEN')
 	return
 
 def relay7_on():
@@ -175,10 +175,10 @@ def main_close():
 	client.publish(TOPIC_2,b'MAINCLOSE')
 	return
 
-def ignite_off():
-	RELAY.relayOFF(1,2)
-	print("IGNITOR OFF")
-	client.publish(TOPIC_2,b'IGNITEOFF')
+def dump_close():
+	RELAY.relayOFF(0,7)
+	print("DUMP CLOSED")
+	client.publish(TOPIC_2,b'DUMPCLOSE')
 	return
 
 def relay7_off():
@@ -274,9 +274,9 @@ def calldata(data):
 		print ("Received data: ",data)
 		main_open()
 
-	elif 'IGNITE_on' in data:
+	elif 'DUMP_open' in data:
 		print ("Received data: ",data)
-		ignite_on()
+		dump_open()
 
 	elif 'relay7_open' in data:
 		print ("Received data: ",data)
@@ -318,9 +318,9 @@ def calldata(data):
 		print ("Received data: ",data)
 		main_close()
 
-	elif 'IGNITE_off' in data:
+	elif 'DUMP_close' in data:
 		print ("Received data: ",data)
-		ignite_off()
+		dump_close()
 
 	elif 'abort' in data:
 		print ("Received data: ",data)
