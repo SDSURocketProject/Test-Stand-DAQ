@@ -62,7 +62,7 @@ class Client(QMainWindow):
 
 		#Centers of Certain Objects, such as the test stand picture.
 		self.testStandCenter = self.xCenter +290
-		self.testStandDepth = self.yCenter - 480
+		self.testStandDepth = self.yCenter - 790
 
 		#Used to animate the Tanks, tough because the height function changes from the center of the picture.
 		self.engineInit = 0
@@ -398,7 +398,7 @@ class Client(QMainWindow):
 			logger.debug("Saftey Toggled at {}".format(time.strftime("(%H:%M:%S)", time.localtime())))
 			if self.arm_status == False:
 				self.launch_btn.setEnabled(True)
-				self.ignitor_on_btn.setEnabled(True)
+				self.dump_open_btn.setEnabled(True)
 				self.mpv_open_btn.setEnabled(True)
 				self.abort_btn.setEnabled(True)
 				self.lox_hi_open_btn.setEnabled(True)
@@ -409,7 +409,7 @@ class Client(QMainWindow):
 				self.safteyread.setText("OFF")
 			elif self.arm_status == True:
 				self.launch_btn.setEnabled(False)
-				self.ignitor_on_btn.setEnabled(False)
+				self.dump_open_btn.setEnabled(False)
 				self.mpv_open_btn.setEnabled(False)
 				self.abort_btn.setEnabled(False)
 				self.lox_hi_open_btn.setEnabled(False)
@@ -655,11 +655,11 @@ class Client(QMainWindow):
 			self.ch4mpvvalve.setPixmap(QPixmap('pictures/mpvvalvered.png'))
 			self.loxmpvvalve.setPixmap(QPixmap('pictures/mpvvalvered.png'))
 
-		elif 'IGNITEON' in data:
-			logger.debug("IGNITOR ON at {}".format(time.strftime("(%H:%M:%S)", time.localtime())))
-			self.logTextBox.append("  >  IGNITOR ON!{}".format(time.strftime("\t     -\t(%H:%M:%S)", time.localtime())))
-			self.ignitor_on_btn.setEnabled(False)
-			self.ignitor_off_btn.setEnabled(True)
+		elif 'DUMPOPEN' in data:
+			logger.debug("DUMP OPEN at {}".format(time.strftime("(%H:%M:%S)", time.localtime())))
+			self.logTextBox.append("  >  DUMP OPEN!{}".format(time.strftime("\t     -\t(%H:%M:%S)", time.localtime())))
+			self.dump_open_btn.setEnabled(False)
+			self.dump_close_btn.setEnabled(True)
 
 		elif 'R7ON' in data:
 			logger.debug("Relay_7_ON at {}".format(time.strftime("(%H:%M:%S)", time.localtime())))
@@ -739,11 +739,11 @@ class Client(QMainWindow):
 			self.ch4mpvvalve.setPixmap(QPixmap('pictures/mpvvalvegreen.png'))
 			self.loxmpvvalve.setPixmap(QPixmap('pictures/mpvvalvegreen.png'))
 
-		elif 'IGNITEOFF' in data:
-			logger.debug("IGNITOR OFF at {}".format(time.strftime("(%H:%M:%S)", time.localtime())))
-			self.logTextBox.append("  >  IGNITOR OFF!{}".format(time.strftime("\t     -\t(%H:%M:%S)", time.localtime())))
-			self.ignitor_on_btn.setEnabled(True)
-			self.ignitor_off_btn.setEnabled(False)
+		elif 'DUMPCLOSE' in data:
+			logger.debug("DUMP CLOSE at {}".format(time.strftime("(%H:%M:%S)", time.localtime())))
+			self.logTextBox.append("  >  DUMP CLOSE!{}".format(time.strftime("\t     -\t(%H:%M:%S)", time.localtime())))
+			self.dump_open_btn.setEnabled(True)
+			self.dump_close_btn.setEnabled(False)
 
 		elif 'ABORT' in data:
 			logger.debug("ABORTED at {}".format(time.strftime("(%H:%M:%S)", time.localtime())))
