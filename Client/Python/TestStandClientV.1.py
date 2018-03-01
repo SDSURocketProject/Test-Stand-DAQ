@@ -81,6 +81,7 @@ class Client(QMainWindow):
 		self.HOST = "192.168.1.132"
 		self.TOPIC_1 = "Valve_Commands"
 		self.TOPIC_2 = "Valve_Readings"
+		self.TOPIC_3 = "Hall_Effect"
 		self.server_address = (self.HOST, 1883)
 		self.voltlist = []
 
@@ -783,6 +784,30 @@ class Client(QMainWindow):
 		elif 'BW-B' in data: # Breakwire Broken
 			logger.debug("Breakwire Broken at {}".format(time.strftime("(%A)", time.localtime())))
 
+		elif 'HALL_CH4_MPV_OPEN':
+			logger.debug("Hall Effect: CH4 MPV OPEN at {}".format(time.strftime("(%A)", time.localtime())))
+		elif 'HALL_LOX_MPV_OPEN':
+			logger.debug("Hall Effect: LOX MPV OPEN at {}".format(time.strftime("(%A)", time.localtime())))
+		elif 'HALL_CH4_VENT_OPEN':
+			logger.debug("Hall Effect: CH4 VENT OPEN at {}".format(time.strftime("(%A)", time.localtime())))
+		elif 'HALL_LOX_VENT_OPEN':
+			logger.debug("Hall Effect: LOX VENT OPEN at {}".format(time.strftime("(%A)", time.localtime())))
+		elif 'HALL_CH4_HI_OPEN':
+			logger.debug("Hall Effect: CH4 HI OPEN at {}".format(time.strftime("(%A)", time.localtime())))
+		elif 'HALL_LOX_HI_OPEN':
+			logger.debug("Hall Effect: LOX HI OPEN at {}".format(time.strftime("(%A)", time.localtime())))
+		elif 'HALL_CH4_MPV_CLOSED':
+			logger.debug("Hall Effect: CH4 MPV CLOSED at {}".format(time.strftime("(%A)", time.localtime())))
+		elif 'HALL_LOX_MPV_CLOSED':
+			logger.debug("Hall Effect: LOX MPV CLOSED at {}".format(time.strftime("(%A)", time.localtime())))
+		elif 'HALL_CH4_VENT_CLOSED':
+			logger.debug("Hall Effect: CH4 VENT CLOSED at {}".format(time.strftime("(%A)", time.localtime())))
+		elif 'HALL_LOX_VENT_CLOSED':
+			logger.debug("Hall Effect: LOX VENT CLOSED at {}".format(time.strftime("(%A)", time.localtime())))
+		elif 'HALL_CH4_HI_CLOSED':
+			logger.debug("Hall Effect: CH4 HI CLOSED at {}".format(time.strftime("(%A)", time.localtime())))
+		elif 'HALL_LOX_HI_CLOSED':
+			logger.debug("Hall Effect: LOX HI CLOSED at {}".format(time.strftime("(%A)", time.localtime())))
 	'''def relay_state(self, data):
 		if len(data) > 6:
 			data = data[4:-1]
@@ -894,6 +919,7 @@ class Client(QMainWindow):
 		self.connectionsymbol.setPixmap(QPixmap('pictures/pinggreen.png'))
 		self.connect_btn.setEnabled(False)
 		self.client.subscribe(self.TOPIC_2)
+		self.client.subscribe(slef.TOPIC_3)
 		#self.client.publish(self.TOPIC_1,b'give_states')
 		return self.error
 
