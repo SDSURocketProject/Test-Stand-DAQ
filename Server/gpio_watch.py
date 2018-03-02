@@ -53,42 +53,42 @@ def handler(pin_num):
     if(states[pin_index]):
         print("{}: OPEN".format(pin_name(pin_num)))
         if(pin_index == 0):
-            client.publish(TOPIC_3,b'CH4_MPV_OPEN')
+            client.publish(TOPIC_3,b'HALL_CH4_MPV_OPEN')
             return;
         if(pin_index == 1):
-            client.publish(TOPIC_3,b'LOX_MPV_OPEN')
+            client.publish(TOPIC_3,b'HALL_LOX_MPV_OPEN')
             return;
         if(pin_index == 2):
-            client.publish(TOPIC_3,b'CH4_VENT_OPEN')
+            client.publish(TOPIC_3,b'HALL_CH4_VENT_OPEN')
             return;
         if(pin_index == 3):
-            client.publish(TOPIC_3,b'LOX_VENT_OPEN')
+            client.publish(TOPIC_3,b'HALL_LOX_VENT_OPEN')
             return;
         if(pin_index == 4):
-            client.publish(TOPIC_3,b'CH4_HI_OPEN')
+            client.publish(TOPIC_3,b'HALL_CH4_HI_OPEN')
             return;
         if(pin_index == 5):
-            client.publish(TOPIC_3,b'LOX_HI_OPEN')
+            client.publish(TOPIC_3,b'HALL_LOX_HI_OPEN')
             return;
     else:
         print("{}: CLOSED".format(pin_name(pin_num)))
         if(pin_index == 0):
-            client.publish(TOPIC_3,b'CH4_MPV_CLOSED')
+            client.publish(TOPIC_3,b'HALL_CH4_MPV_CLOSED')
             return;
         if(pin_index == 1):
-            client.publish(TOPIC_3,b'LOX_MPV_CLOSED')
+            client.publish(TOPIC_3,b'HALL_LOX_MPV_CLOSED')
             return;
         if(pin_index == 2):
-            client.publish(TOPIC_3,b'CH4_VENT_CLOSED')
+            client.publish(TOPIC_3,b'HALL_CH4_VENT_CLOSED')
             return;
         if(pin_index == 3):
-            client.publish(TOPIC_3,b'LOX_VENT_CLOSED')
+            client.publish(TOPIC_3,b'HALL_LOX_VENT_CLOSED')
             return;
         if(pin_index == 4):
-            client.publish(TOPIC_3,b'CH4_HI_CLOSED')
+            client.publish(TOPIC_3,b'HALL_CH4_HI_CLOSED')
             return;
         if(pin_index == 5):
-            client.publish(TOPIC_3,b'LOX_HI_CLOSED')
+            client.publish(TOPIC_3,b'HALL_LOX_HI_CLOSED')
             return;
 
 # Load Starting Values
