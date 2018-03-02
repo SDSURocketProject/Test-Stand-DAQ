@@ -1,10 +1,14 @@
 import piplates.RELAYplate as RELAY
 import paho.mqtt.client as mqtt
+import RPi.GPIO as GPIO
 import time
 
 HOST = "192.168.1.132"
 TOPIC_1 = "Valve_Commands"
 TOPIC_2 = "Valve_Readings"
+
+GPIO.setmode(GPIO.BCM)
+GPIO.setup(22,GPIO.OUT)
 
 print ("\nTest Stand Server Ready.")
 print (("Please connect client software to: %s at port: %d \n") % (HOST, 1883))
@@ -113,6 +117,12 @@ def dump_open():
 	client.publish(TOPIC_2,b'DUMPOPEN')
 	return
 
+def ignitor_on():
+	GPIO.output(22,1)
+	print("IGNITOR ON")
+	client.publish(TOPIC_2,b'IGNITEON')
+	return
+
 def relay7_on():
 	RELAY.relayON(0,7)
 	print("Relay 7 ON")
@@ -180,6 +190,12 @@ def dump_close():
 	RELAY.relayOFF(0,7)
 	print("DUMP CLOSED")
 	client.publish(TOPIC_2,b'DUMPCLOSE')
+	return
+
+def ignitor_off():
+	GPIO.output(22,0)
+	print("IGNITOR OFF")
+	client.publish(TOPIC_2,b'IGNITEOFF')
 	return
 
 def relay7_off():
@@ -280,6 +296,10 @@ def calldata(data):
 		print ("Received data: ",data)
 		dump_open()
 
+	elif 'IGNITE_on' in data:
+		print ("Received data: ",data)
+		ignitor_on()
+
 	elif 'relay7_open' in data:
 		print ("Received data: ",data)
 		relay7_on()
@@ -323,6 +343,10 @@ def calldata(data):
 	elif 'DUMP_close' in data:
 		print ("Received data: ",data)
 		dump_close()
+
+	elif 'IGNITE_off' in data:
+		print ("Received data: ",data)
+		ignitor_off()
 
 	elif 'abort' in data:
 		print ("Received data: ",data)
