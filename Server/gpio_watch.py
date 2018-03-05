@@ -51,7 +51,7 @@ def pin_name(num):
 def handler(pin_num):
     pin_index = pins.index(pin_num)
     if(states[pin_index]):
-        print("{}: OPEN".format(pin_name(pin_num)))
+        print("HALL EFFECT {}: OPEN".format(pin_name(pin_num)))
         if(pin_index == 0):
             client.publish(TOPIC_3,b'HALL_CH4_MPV_OPEN')
             return;
@@ -71,7 +71,7 @@ def handler(pin_num):
             client.publish(TOPIC_3,b'HALL_LOX_HI_OPEN')
             return;
     else:
-        print("{}: CLOSED".format(pin_name(pin_num)))
+        print("HALL EFFECT {}: CLOSED".format(pin_name(pin_num)))
         if(pin_index == 0):
             client.publish(TOPIC_3,b'HALL_CH4_MPV_CLOSED')
             return;
