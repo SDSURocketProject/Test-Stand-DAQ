@@ -1,5 +1,5 @@
-CC=gcc
-CFLAGS=-lpaho-mqtt3c
+CC=tcc
+CFLAGS=-L/usr/local/lib -lpaho-mqtt3c
 
 client:
 	@echo [CC] client.c
