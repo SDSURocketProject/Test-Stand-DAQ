@@ -1,10 +1,14 @@
 import piplates.RELAYplate as RELAY
 import paho.mqtt.client as mqtt
+import RPi.GPIO as GPIO
 import time
 
 HOST = "192.168.1.132"
 TOPIC_1 = "Valve_Commands"
 TOPIC_2 = "Valve_Readings"
+
+GPIO.setmode(GPIO.BCM)
+GPIO.setup(22,GPIO.OUT)
 
 print ("\nTest Stand Server Ready.")
 print (("Please connect client software to: %s at port: %d \n") % (HOST, 1883))
@@ -53,119 +57,125 @@ print ("Awaiting commands... \n")
 def lox_hi_open():
 	RELAY.relayON(0,1)
 	print("LOX HI OPENED")
-	client.publish(TOPIC_2,b'LOXHIOPEN')
+	#client.publish(TOPIC_2,b'LOXHIOPEN')
 	return
 
 def meth_hi_open():
-	RELAY.relayON(0,3)
+	RELAY.relayON(0,2)
 	print("METH HI OPENED")
-	client.publish(TOPIC_2,b'METHHIOPEN')
+	#client.publish(TOPIC_2,b'METHHIOPEN')
 	return
 
 def meth_vent_open():
-	RELAY.relayOFF(0,2)
+	RELAY.relayOFF(0,3)
 	print("METH VENT OPENED")
-	client.publish(TOPIC_2,b'METHVENTOPEN')
+	#client.publish(TOPIC_2,b'METHVENTOPEN')
 	return
 
 def lox_vent_open():
 	RELAY.relayOFF(0,4)
 	print("LOX VENT OPENED")
-	client.publish(TOPIC_2,b'LOXVENTOPEN')
+	#client.publish(TOPIC_2,b'LOXVENTOPEN')
 	return
 
 def meth_mpv_open():
 	RELAY.relayON(0,6)
 	print("METH MPV OPENED")
-	client.publish(TOPIC_2,b'METHMPVOPEN')
+	#client.publish(TOPIC_2,b'METHMPVOPEN')
 	return
 
 def lox_mpv_open():
 	RELAY.relayON(0,5)
 	print("LOX MPV OPENED")
-	client.publish(TOPIC_2,b'LOXMPVOPEN')
+	#client.publish(TOPIC_2,b'LOXMPVOPEN')
 	return
 
 def purge_open():
-	RELAY.relayON(1,1)
+	RELAY.relayON(1,7)
 	print("PURGE OPENED")
-	client.publish(TOPIC_2,b'PURGEOPEN')
+	#client.publish(TOPIC_2,b'PURGEOPEN')
 	return
 
 def vents_open():
-	RELAY.relayOFF(0,2)
+	RELAY.relayOFF(0,3)
 	RELAY.relayOFF(0,4)
 	print("VENTS OPENED")
-	client.publish(TOPIC_2,b'VENTSOPEN')
+	#client.publish(TOPIC_2,b'VENTSOPEN')
 	return
 
 def main_open():
 	RELAY.relayON(0,6)
-	time.sleep(0.5)
+	#time.sleep(0.5)
 	RELAY.relayON(0,5)
 	print("MPV OPENED")
-	client.publish(TOPIC_2,b'MAINOPEN')
+	#client.publish(TOPIC_2,b'MAINOPEN')
 	return
 
 def dump_open():
 	RELAY.relayON(0,7)
 	print("DUMP OPENED")
-	client.publish(TOPIC_2,b'DUMPOPEN')
+	#client.publish(TOPIC_2,b'DUMPOPEN')
+	return
+
+def ignitor_on():
+	GPIO.output(22,1)
+	print("IGNITOR ON")
+	#client.publish(TOPIC_2,b'IGNITEON')
 	return
 
 def relay7_on():
 	RELAY.relayON(0,7)
 	print("Relay 7 ON")
-	client.publish(TOPIC_2,b'R7ON')
+	#client.publish(TOPIC_2,b'R7ON')
 	return
 
 def lox_hi_close():
 	RELAY.relayOFF(0,1)
 	print("LOX HI CLOSED")
-	client.publish(TOPIC_2,b'LOXHICLOSE')
+	#client.publish(TOPIC_2,b'LOXHICLOSE')
 	return
 
 def meth_hi_close():
-	RELAY.relayOFF(0,3)
+	RELAY.relayOFF(0,2)
 	print("METH HI CLOSED")
-	client.publish(TOPIC_2,b'METHHICLOSE')
+	#client.publish(TOPIC_2,b'METHHICLOSE')
 	return
 
 def meth_vent_close():
-	RELAY.relayON(0,2)
+	RELAY.relayON(0,3)
 	print("METH VENT CLOSED")
-	client.publish(TOPIC_2,b'METHVENTCLOSE')
+	#client.publish(TOPIC_2,b'METHVENTCLOSE')
 	return
 
 def lox_vent_close():
 	RELAY.relayON(0,4)
 	print("LOX VENT CLOSED")
-	client.publish(TOPIC_2,b'LOXVENTCLOSE')
+	#client.publish(TOPIC_2,b'LOXVENTCLOSE')
 	return
 
 def meth_mpv_close():
 	RELAY.relayOFF(0,6)
 	print("METH MPV CLOSED")
-	client.publish(TOPIC_2,b'METHMPVCLOSE')
+	#client.publish(TOPIC_2,b'METHMPVCLOSE')
 	return
 
 def lox_mpv_close():
 	RELAY.relayOFF(0,5)
 	print("LOX MPV CLOSED")
-	client.publish(TOPIC_2,b'LOXMPVCLOSE')
+	#client.publish(TOPIC_2,b'LOXMPVCLOSE')
 	return
 
 def purge_close():
-	RELAY.relayOFF(1,1)
+	RELAY.relayOFF(1,7)
 	print("PURGE CLOSED")
-	client.publish(TOPIC_2,b'PURGECLOSE')
+	#client.publish(TOPIC_2,b'PURGECLOSE')
 	return
 
 def vents_close():
-	RELAY.relayON(0,2)
+	RELAY.relayON(0,3)
 	RELAY.relayON(0,4)
 	print("VENTS CLOSED")
-	client.publish(TOPIC_2,b'VENTSCLOSE')
+	#client.publish(TOPIC_2,b'VENTSCLOSE')
 	return
 
 def main_close():
@@ -173,27 +183,33 @@ def main_close():
 	time.sleep(0.5)
 	RELAY.relayOFF(0,6)
 	print("MPV CLOSED")
-	client.publish(TOPIC_2,b'MAINCLOSE')
+	#client.publish(TOPIC_2,b'MAINCLOSE')
 	return
 
 def dump_close():
 	RELAY.relayOFF(0,7)
 	print("DUMP CLOSED")
-	client.publish(TOPIC_2,b'DUMPCLOSE')
+	#client.publish(TOPIC_2,b'DUMPCLOSE')
+	return
+
+def ignitor_off():
+	GPIO.output(22,0)
+	print("IGNITOR OFF")
+	#client.publish(TOPIC_2,b'IGNITEOFF')
 	return
 
 def relay7_off():
 	RELAY.relayOFF(0,7)
 	print("Relay 7 OFF")
-	client.publish(TOPIC_2,b'R7OFF')
+	#client.publish(TOPIC_2,b'R7OFF')
 	return
 
 def launch():
 	RELAY.relayON(0,6)
-	time.sleep(0.5)
+	#time.sleep(0.5)
 	RELAY.relayON(0,5)
 	print("MPV OPENED")
-	client.publish(TOPIC_2,b'MAINOPEN')
+	#client.publish(TOPIC_2,b'MAINOPEN')
 	return
 
 def abort():
@@ -227,13 +243,13 @@ def relay_state():
 '''
 #########RELAYS###########
 relay 1: LOX HI VALVE
-relay 2: METH HI VALVE
-relay 3: METH VENT VALVE
+relay 2: CH4 HI VALVE
+relay 3: CH4 VENT VALVE
 relay 4: LOX VENT VALVE
-relay 5: METH MPV
-relay 6: LOX MPV
-relay 7: Nothing
-relay 8: PURGE
+relay 5: LOX MPV
+relay 6: CH4 MPV
+relay 7: DUMP
+relay 14: PURGE
 '''
 
 def calldata(data):
@@ -280,6 +296,10 @@ def calldata(data):
 		print ("Received data: ",data)
 		dump_open()
 
+	elif 'IGNITE_on' in data:
+		print ("Received data: ",data)
+		ignitor_on()
+
 	elif 'relay7_open' in data:
 		print ("Received data: ",data)
 		relay7_on()
@@ -323,6 +343,10 @@ def calldata(data):
 	elif 'DUMP_close' in data:
 		print ("Received data: ",data)
 		dump_close()
+
+	elif 'IGNITE_off' in data:
+		print ("Received data: ",data)
+		ignitor_off()
 
 	elif 'abort' in data:
 		print ("Received data: ",data)

@@ -62,7 +62,7 @@ class Client(QMainWindow):
 
 		#Centers of Certain Objects, such as the test stand picture.
 		self.testStandCenter = self.xCenter +290
-		self.testStandDepth = self.yCenter - 790
+		self.testStandDepth = self.yCenter - 490
 
 		#Used to animate the Tanks, tough because the height function changes from the center of the picture.
 		self.engineInit = 0
@@ -81,6 +81,7 @@ class Client(QMainWindow):
 		self.HOST = "192.168.1.132"
 		self.TOPIC_1 = "Valve_Commands"
 		self.TOPIC_2 = "Valve_Readings"
+		self.TOPIC_3 = "Hall_Effect"
 		self.server_address = (self.HOST, 1883)
 		self.voltlist = []
 
@@ -598,7 +599,7 @@ class Client(QMainWindow):
 
 		elif 'METHVENTOPEN' in data:
 			logger.debug("METH VENT OPEN at {}".format(time.strftime("(%H:%M:%S)", time.localtime())))
-			self.logTextBox.append("  >  METH VENT OPEN!{}".format(time.strftime("\t     -\t(%H:%M:%S)", time.localtime())))
+			self.logTextBox.append("  >  METH VENT OPEN!{}".format(time.strftime("     -\t(%H:%M:%S)", time.localtime())))
 			self.meth_vent_open_btn.setEnabled(False)
 			self.meth_vent_close_btn.setEnabled(True)
 			self.ch4ventvalve.setPixmap(QPixmap('pictures/ventvalvered.png'))
@@ -612,7 +613,7 @@ class Client(QMainWindow):
 
 		elif 'METHMPVOPEN' in data:
 			logger.debug("METH MPV OPEN at {}".format(time.strftime("(%H:%M:%S)", time.localtime())))
-			self.logTextBox.append("  >  METH MPV OPEN!{}".format(time.strftime("\t     -\t(%H:%M:%S)", time.localtime())))
+			self.logTextBox.append("  >  METH MPV OPEN!{}".format(time.strftime("     -\t(%H:%M:%S)", time.localtime())))
 			self.meth_mpv_open_btn.setEnabled(False)
 			self.meth_mpv_close_btn.setEnabled(True)
 			self.ch4mpvvalve.setPixmap(QPixmap('pictures/mpvvalvered.png'))
@@ -682,21 +683,21 @@ class Client(QMainWindow):
 
 		elif 'METHVENTCLOSE' in data:
 			logger.debug("METH VENT CLOSE at {}".format(time.strftime("(%H:%M:%S)", time.localtime())))
-			self.logTextBox.append("  >  METH VENT CLOSE!{}".format(time.strftime("\t     -\t(%H:%M:%S)", time.localtime())))
+			self.logTextBox.append("  >  METH VENT CLOSE!{}".format(time.strftime("     -\t(%H:%M:%S)", time.localtime())))
 			self.meth_vent_open_btn.setEnabled(True)
 			self.meth_vent_close_btn.setEnabled(False)
 			self.ch4ventvalve.setPixmap(QPixmap('pictures/ventvalvegreen.png'))
 
 		elif 'LOXVENTCLOSE' in data:
 			logger.debug("LOX VENT CLOSE at {}".format(time.strftime("(%H:%M:%S)", time.localtime())))
-			self.logTextBox.append("  >  LOX VENT CLOSE!{}".format(time.strftime("\t     -\t(%H:%M:%S)", time.localtime())))
+			self.logTextBox.append("  >  LOX VENT CLOSE!{}".format(time.strftime("     -\t(%H:%M:%S)", time.localtime())))
 			self.lox_vent_open_btn.setEnabled(True)
 			self.lox_vent_close_btn.setEnabled(False)
 			self.loxventvalve.setPixmap(QPixmap('pictures/ventvalvegreen.png'))
 
 		elif 'METHMPVCLOSE' in data:
 			logger.debug("METH MPV CLOSE at {}".format(time.strftime("(%H:%M:%S)", time.localtime())))
-			self.logTextBox.append("  >  METH MPV CLOSE!{}".format(time.strftime("\t     -\t(%H:%M:%S)", time.localtime())))
+			self.logTextBox.append("  >  METH MPV CLOSE!{}".format(time.strftime("     -\t(%H:%M:%S)", time.localtime())))
 			self.meth_mpv_open_btn.setEnabled(True)
 			self.meth_mpv_close_btn.setEnabled(False)
 			self.ch4mpvvalve.setPixmap(QPixmap('pictures/mpvvalvegreen.png'))
@@ -898,6 +899,7 @@ class Client(QMainWindow):
 		self.connectionsymbol.setPixmap(QPixmap('pictures/pinggreen.png'))
 		self.connect_btn.setEnabled(False)
 		self.client.subscribe(self.TOPIC_2)
+		self.client.subscribe(self.TOPIC_3)
 		#self.client.publish(self.TOPIC_1,b'give_states')
 		return self.error
 
