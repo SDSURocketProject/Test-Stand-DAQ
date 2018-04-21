@@ -2,6 +2,7 @@ import piplates.RELAYplate as RELAY
 import paho.mqtt.client as mqtt
 import RPi.GPIO as GPIO
 import time
+import subprocess
 
 HOST = "192.168.1.132"
 TOPIC_1 = "Valve_Commands"
@@ -37,6 +38,11 @@ client.connect(HOST, 1883, 60)
 print ("Connection established.")
 #print ('Connection address: ',addr)
 #logger.debug("Connection established at {}".format(time.asctime())) #find what the ip is
+
+print ("Starting Hall Effect Server")
+
+subprocess.run("gpio_watch.py")
+
 print ("Awaiting commands... \n")
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
@@ -105,7 +111,7 @@ def vents_open():
 
 def main_open():
 	RELAY.relayON(0,6)
-	#time.sleep(0.5)
+	time.sleep(0.5)
 	RELAY.relayON(0,5)
 	print("MPV OPENED")
 	#client.publish(TOPIC_2,b'MAINOPEN')
@@ -115,6 +121,12 @@ def dump_open():
 	RELAY.relayON(0,7)
 	print("DUMP OPENED")
 	#client.publish(TOPIC_2,b'DUMPOPEN')
+	return
+
+def dump_open():
+	RELAY.relayON(0,7)
+	print("DUMP OPENED")
+	client.publish(TOPIC_2,b'DUMPOPEN')
 	return
 
 def ignitor_on():
@@ -206,7 +218,7 @@ def relay7_off():
 
 def launch():
 	RELAY.relayON(0,6)
-	#time.sleep(0.5)
+	time.sleep(0.5)
 	RELAY.relayON(0,5)
 	print("MPV OPENED")
 	#client.publish(TOPIC_2,b'MAINOPEN')
