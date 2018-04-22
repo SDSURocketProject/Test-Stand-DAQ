@@ -62,7 +62,7 @@ class Client(QMainWindow):
 
 		#Centers of Certain Objects, such as the test stand picture.
 		self.testStandCenter = self.xCenter +290
-		self.testStandDepth = self.yCenter - 500
+		self.testStandDepth = self.yCenter - 490
 
 		#Used to animate the Tanks, tough because the height function changes from the center of the picture.
 		self.engineInit = 0
@@ -225,186 +225,171 @@ class Client(QMainWindow):
 		self.dump_open_btn = createButton(self,'Dump Valve Open',370,205,270,70,False,self.font2,self.dump_open_app,'icon.png',100,100)
 		self.dump_close_btn = createButton(self,'Dump Valve Close',650,205,270,70,False,self.font2,self.dump_close_app,'icon.png',100,100)
 
-		self.purge_open_btn = createButton(self,'Purge Open',20,965,270,70,True,self.font2,self.purge_open_app,'icon.png',100,100)
-		self.purge_close_btn= createButton(self,'Purge Close',300,965,270,70,False,self.font2,self.purge_close_app,'icon.png',100,100)
+		self.purge_open_btn = createButton(self,'Purge Open',370,130,270,70,True,self.font2,self.purge_open_app,'icon.png',100,100)
+		self.purge_close_btn= createButton(self,'Purge Close',650,130,270,70,False,self.font2,self.purge_close_app,'icon.png',100,100)
 
-		self.ignite_on_btn = createButton(self,'Ignitor On',370,130,270,70,False,self.font2,self.ignite_on_app,'icon.png',100,100)
-		self.ignite_off_btn= createButton(self,'Ignitor Off',650,130,270,70,False,self.font2,self.ignite_off_app,'icon.png',100,100)
+		self.activate_btn = createButton(self,'Activate',1380,900,140,30,True,self.font2,self.danger_app,'icon.png',100,100)
 
 		#self.so7_btn = createButton(self,'Solenoid 7 Open',660,740,270,70,True,self.font2,self.so7_app,'icon.png',100,100)
 		#self.sc7_btn = createButton(self,'Solenoid 7 Close',660,815,270,70,False,self.font2,self.sc7_app,'icon.png',100,100)
 
 	def lox_hi_open_app(self):
 		if self.connection_status == True:
-			logger.debug("Lox HI Open at {}".format(time.strftime("(%H:%M:%S)", time.localtime())))
+			logger.debug("{} Lox HI Open".format(time.strftime("(%H:%M:%S)", time.localtime())))
 			self.send_info('lho')
 		elif self.connection_status == False:
 			QMessageBox.information(self, 'Connection Results', 'You are not connected, please connect and try again.')
 
 	def lox_hi_close_app(self):
 		if self.connection_status == True:
-			logger.debug("Lox HI Close at {}".format(time.strftime("(%H:%M:%S)", time.localtime())))
+			logger.debug("{} Lox HI Close".format(time.strftime("(%H:%M:%S)", time.localtime())))
 			self.send_info('lhc')
 		elif self.connection_status == False:
 			QMessageBox.information(self, 'Connection Results', 'You are not connected, please connect and try again.')
 
 	def meth_hi_open_app(self):
 		if self.connection_status == True:
-			logger.debug("Methane HI Open at {}".format(time.strftime("(%H:%M:%S)", time.localtime())))
+			logger.debug("{} Methane HI Open".format(time.strftime("(%H:%M:%S)", time.localtime())))
 			self.send_info('mho')
 		elif self.connection_status == False:
 			QMessageBox.information(self, 'Connection Results', 'You are not connected, please connect and try again.')
 
 	def meth_hi_close_app(self):
 		if self.connection_status == True:
-			logger.debug("Methane HI Close at {}".format(time.strftime("(%H:%M:%S)", time.localtime())))
+			logger.debug("{} Methane HI Close".format(time.strftime("(%H:%M:%S)", time.localtime())))
 			self.send_info('mhc')
 		elif self.connection_status == False:
 			QMessageBox.information(self, 'Connection Results', 'You are not connected, please connect and try again.')
 
 	def meth_vent_open_app(self):
 		if self.connection_status == True:
-			logger.debug("Methane Vent Open at {}".format(time.strftime("(%H:%M:%S)", time.localtime())))
+			logger.debug("{} Methane Vent Open".format(time.strftime("(%H:%M:%S)", time.localtime())))
 			self.send_info('mvo')
 		elif self.connection_status == False:
 			QMessageBox.information(self, 'Connection Results', 'You are not connected, please connect and try again.')
 
 	def meth_vent_close_app(self):
 		if self.connection_status == True:
-			logger.debug("Methane Vent Close at {}".format(time.strftime("(%H:%M:%S)", time.localtime())))
+			logger.debug("{} Methane Vent Close".format(time.strftime("(%H:%M:%S)", time.localtime())))
 			self.send_info('mvc')
 		elif self.connection_status == False:
 			QMessageBox.information(self, 'Connection Results', 'You are not connected, please connect and try again.')
 
 	def lox_vent_open_app(self):
 		if self.connection_status == True:
-			logger.debug("Lox Vent Open at {}".format(time.strftime("(%H:%M:%S)", time.localtime())))
+			logger.debug("{} Lox Vent Open".format(time.strftime("(%H:%M:%S)", time.localtime())))
 			self.send_info('lvo')
 		elif self.connection_status == False:
 			QMessageBox.information(self, 'Connection Results', 'You are not connected, please connect and try again.')
 
 	def lox_vent_close_app(self):
 		if self.connection_status == True:
-			logger.debug("Lox Vent Close at {}".format(time.strftime("(%H:%M:%S)", time.localtime())))
+			logger.debug("{} Lox Vent Close".format(time.strftime("(%H:%M:%S)", time.localtime())))
 			self.send_info('lvc')
 		elif self.connection_status == False:
 			QMessageBox.information(self, 'Connection Results', 'You are not connected, please connect and try again.')
 
 	def meth_mpv_open_app(self):
 		if self.connection_status == True:
-			logger.debug("Methane MPV Open at {}".format(time.strftime("(%H:%M:%S)", time.localtime())))
+			logger.debug("{} Methane MPV Open".format(time.strftime("(%H:%M:%S)", time.localtime())))
 			self.send_info('mmo')
 		elif self.connection_status == False:
 			QMessageBox.information(self, 'Connection Results', 'You are not connected, please connect and try again.')			
 
 	def meth_mpv_close_app(self):
 		if self.connection_status == True:
-			logger.debug("Methane MPV Close at {}".format(time.strftime("(%H:%M:%S)", time.localtime())))
+			logger.debug("{} Methane MPV Close".format(time.strftime("(%H:%M:%S)", time.localtime())))
 			self.send_info('mmc')
 		elif self.connection_status == False:
 			QMessageBox.information(self, 'Connection Results', 'You are not connected, please connect and try again.')
 
 	def lox_mpv_open_app(self):
 		if self.connection_status == True:
-			logger.debug("LOX MPV Open at {}".format(time.strftime("(%H:%M:%S)", time.localtime())))
+			logger.debug("{} LOX MPV Open".format(time.strftime("(%H:%M:%S)", time.localtime())))
 			self.send_info('lmo')
 		elif self.connection_status == False:
 			QMessageBox.information(self, 'Connection Results', 'You are not connected, please connect and try again.')	
 
 	def lox_mpv_close_app(self):
 		if self.connection_status == True:
-			logger.debug("LOX MPV Close at {}".format(time.strftime("(%H:%M:%S)", time.localtime())))
+			logger.debug("{} LOX MPV Close".format(time.strftime("(%H:%M:%S)", time.localtime())))
 			self.send_info('lmc')
 		elif self.connection_status == False:
 			QMessageBox.information(self, 'Connection Results', 'You are not connected, please connect and try again.')		
 
 	def purge_open_app(self):
 		if self.connection_status == True:
-			logger.debug("Purge Open at {}".format(time.strftime("(%H:%M:%S)", time.localtime())))
+			logger.debug("{} Purge Open".format(time.strftime("(%H:%M:%S)", time.localtime())))
 			self.send_info('po')
 		elif self.connection_status == False:
 			QMessageBox.information(self, 'Connection Results', 'You are not connected, please connect and try again.')
 
 	def purge_close_app(self):
 		if self.connection_status == True:
-			logger.debug("Purge Close at {}".format(time.strftime("(%H:%M:%S)", time.localtime())))
+			logger.debug("{} Purge Close".format(time.strftime("(%H:%M:%S)", time.localtime())))
 			self.send_info('pc')
 		elif self.connection_status == False:
 			QMessageBox.information(self, 'Connection Results', 'You are not connected, please connect and try again.')
 
 	def vents_open_app(self):
 		if self.connection_status == True:
-			logger.debug("Vents Open at {}".format(time.strftime("(%H:%M:%S)", time.localtime())))
+			logger.debug("{} Vents Open".format(time.strftime("(%H:%M:%S)", time.localtime())))
 			self.send_info('vo')
 		elif self.connection_status == False:
 			QMessageBox.information(self, 'Connection Results', 'You are not connected, please connect and try again.')
 
 	def vents_close_app(self):
 		if self.connection_status == True:
-			logger.debug("Vents Close at {}".format(time.strftime("(%H:%M:%S)", time.localtime())))
+			logger.debug("{} Vents Close".format(time.strftime("(%H:%M:%S)", time.localtime())))
 			self.send_info('vc')
 		elif self.connection_status == False:
 			QMessageBox.information(self, 'Connection Results', 'You are not connected, please connect and try again.')
 
 	def mpv_open_app(self):
 		if self.connection_status == True:
-			logger.debug("MPV Open at {}".format(time.strftime("(%H:%M:%S)", time.localtime())))
+			logger.debug("{} MPV Open".format(time.strftime("(%H:%M:%S)", time.localtime())))
 			self.send_info('mo')
 		elif self.connection_status == False:
 			QMessageBox.information(self, 'Connection Results', 'You are not connected, please connect and try again.')
 
 	def mpv_close_app(self):
 		if self.connection_status == True:
-			logger.debug("MPV Close at {}".format(time.strftime("(%H:%M:%S)", time.localtime())))
+			logger.debug("{} MPV Close".format(time.strftime("(%H:%M:%S)", time.localtime())))
 			self.send_info('mc')
 		elif self.connection_status == False:
 			QMessageBox.information(self, 'Connection Results', 'You are not connected, please connect and try again.')
 
 	def dump_open_app(self):
 		if self.connection_status == True:
-			logger.debug("Dump Open at {}".format(time.strftime("(%H:%M:%S)", time.localtime())))
+			logger.debug("{} Dump Open".format(time.strftime("(%H:%M:%S)", time.localtime())))
 			self.send_info('dopen')
 		elif self.connection_status == False:
 			QMessageBox.information(self, 'Connection Results', 'You are not connected, please connect and try again.')
 
 	def dump_close_app(self):
 		if self.connection_status == True:
-			logger.debug("Dump Close at {}".format(time.strftime("(%H:%M:%S)", time.localtime())))
+			logger.debug("{} Dump Close".format(time.strftime("(%H:%M:%S)", time.localtime())))
 			self.send_info('dclose')
 		elif self.connection_status == False:
 			QMessageBox.information(self, 'Connection Results', 'You are not connected, please connect and try again.')
 
 	def abort_app(self):
 		if self.connection_status == True:
-			logger.debug("Aborting at {}".format(time.strftime("(%H:%M:%S)", time.localtime())))
+			logger.debug("{} Aborting".format(time.strftime("(%H:%M:%S)", time.localtime())))
 			self.send_info('abort')
-		elif self.connection_status == False:
-			QMessageBox.information(self, 'Connection Results', 'You are not connected, please connect and try again.')
-
-	def ignite_on_app(self):
-		if self.connection_status == True:
-			logger.debug("Ignitor On at {}".format(time.strftime("(%H:%M:%S)", time.localtime())))
-			self.send_info('ignon')
-		elif self.connection_status == False:
-			QMessageBox.information(self, 'Connection Results', 'You are not connected, please connect and try again.')
-
-	def ignite_off_app(self):
-		if self.connection_status == True:
-			logger.debug("Ignitor Off at {}".format(time.strftime("(%H:%M:%S)", time.localtime())))
-			self.send_info('ignoff')
 		elif self.connection_status == False:
 			QMessageBox.information(self, 'Connection Results', 'You are not connected, please connect and try again.')
 
 	def so7_app(self):
 		if self.connection_status == True:
-			logger.debug(" at {}".format(time.strftime("(%H:%M:%S)", time.localtime())))
+			logger.debug("{} ".format(time.strftime("(%H:%M:%S)", time.localtime())))
 			self.send_info('Ro7')
 		elif self.connection_status == False:
 			QMessageBox.information(self, 'Connection Results', 'You are not connected, please connect and try again.')
 
 	def sc7_app(self):
 		if self.connection_status == True:
-			logger.debug(" at {}".format(time.strftime("(%H:%M:%S)", time.localtime())))
+			logger.debug("{} ".format(time.strftime("(%H:%M:%S)", time.localtime())))
 			self.send_info('Rc7')
 		elif self.connection_status == False:
 			QMessageBox.information(self, 'Connection Results', 'You are not connected, please connect and try again.')
@@ -412,7 +397,7 @@ class Client(QMainWindow):
 	def saftey_app(self):
 		if self.connection_status == True:
 			self.logTextBox.append("  >  Saftey Toggled!{}".format(time.strftime("\t     -\t(%H:%M:%S)", time.localtime())))
-			logger.debug("Saftey Toggled at {}".format(time.strftime("(%H:%M:%S)", time.localtime())))
+			logger.debug("{} Saftey Toggled".format(time.strftime("(%H:%M:%S)", time.localtime())))
 			if self.arm_status == False:
 				self.launch_btn.setEnabled(True)
 				self.dump_open_btn.setEnabled(True)
@@ -422,7 +407,6 @@ class Client(QMainWindow):
 				self.meth_hi_open_btn.setEnabled(True)
 				self.lox_mpv_open_btn.setEnabled(True)
 				self.meth_mpv_open_btn.setEnabled(True)
-				self.ignite_on_btn.setEnabled(True)
 				self.arm_status = True
 				self.safteyread.setText("OFF")
 			elif self.arm_status == True:
@@ -434,9 +418,39 @@ class Client(QMainWindow):
 				self.meth_hi_open_btn.setEnabled(False)
 				self.lox_mpv_open_btn.setEnabled(False)
 				self.meth_mpv_open_btn.setEnabled(False)
-				self.ignite_on_btn.setEnabled(False)
 				self.arm_status = False
 				self.safteyread.setText("ON")
+		elif self.connection_status == False:
+			QMessageBox.information(self, 'Connection Results', 'You are not connected, please connect and try again.')
+
+	def danger_app(self):
+		if self.connection_status == True:
+			self.logTextBox.append("  >  Activate Toggled!{}".format(time.strftime("\t     -\t(%H:%M:%S)", time.localtime())))
+			logger.debug("{} Activate Toggled".format(time.strftime("(%H:%M:%S)", time.localtime())))
+			self.launch_btn.setEnabled(True)
+			self.dump_open_btn.setEnabled(True)
+			self.dump_close_btn.setEnabled(True)
+			self.mpv_open_btn.setEnabled(True)
+			self.mpv_close_btn.setEnabled(True)
+			self.abort_btn.setEnabled(True)
+			self.lox_hi_open_btn.setEnabled(True)
+			self.lox_hi_close_btn.setEnabled(True)
+			self.lox_vent_open_btn.setEnabled(True)
+			self.lox_vent_close_btn.setEnabled(True)
+			self.meth_hi_open_btn.setEnabled(True)
+			self.meth_hi_close_btn.setEnabled(True)
+			self.meth_vent_open_btn.setEnabled(True)
+			self.meth_vent_close_btn.setEnabled(True)
+			self.lox_mpv_open_btn.setEnabled(True)
+			self.meth_mpv_open_btn.setEnabled(True)
+			self.lox_mpv_close_btn.setEnabled(True)
+			self.meth_mpv_close_btn.setEnabled(True)
+			self.mpv_open_btn.setEnabled(True)
+			self.abort_btn.setEnabled(True)
+			self.purge_open_btn.setEnabled(True)
+			self.purge_close_btn.setEnabled(True)
+			self.vents_open_btn.setEnabled(True)
+			self.vents_close_btn.setEnabled(True)
 		elif self.connection_status == False:
 			QMessageBox.information(self, 'Connection Results', 'You are not connected, please connect and try again.')
 
@@ -517,82 +531,78 @@ class Client(QMainWindow):
 		'''
 		if command == 'lho':
 			message = b'LOX_HI_open'
-			logger.debug("LOX HI Open at {}".format(time.asctime()))
+			logger.debug("{} LOX HI Open".format(time.asctime()))
 		elif command == 'lhc':
 			message = b'LOX_HI_close'
-			logger.debug("LOX HI Close at {}".format(time.asctime()))
+			logger.debug("{} LOX HI Close".format(time.asctime()))
 		elif command == 'mho':
 			message = b'METH_HI_open'
-			logger.debug("METH HI Open at {}".format(time.asctime()))
+			logger.debug("{} METH HI Open".format(time.asctime()))
 		elif command == 'mhc':
 			message = b'METH_HI_close'
-			logger.debug("METH HI Close at {}".format(time.asctime()))
+			logger.debug("{} METH HI Close".format(time.asctime()))
 		elif command == 'mvo':
 			message = b'METH_VENT_open'
-			logger.debug("METH Vent Open at {}".format(time.asctime()))
+			logger.debug("{} METH Vent Open".format(time.asctime()))
 		elif command == 'mvc':
 			message = b'METH_VENT_close'
-			logger.debug("METH Vent Close at {}".format(time.asctime()))
+			logger.debug("{} METH Vent Close".format(time.asctime()))
 		elif command == 'lvo':
 			message = b'LOX_VENT_open'
-			logger.debug("LOX Vent Open at {}".format(time.asctime()))
+			logger.debug("{} LOX Vent Open".format(time.asctime()))
 		elif command == 'lvc':
 			message = b'LOX_VENT_close'
-			logger.debug("LOX Vent Close at {}".format(time.asctime()))
+			logger.debug("{} LOX Vent Close".format(time.asctime()))
 		elif command == 'mmo':
 			message = b'METH_MPV_open'
-			logger.debug("METH MPV Open at {}".format(time.asctime()))
+			logger.debug("{} METH MPV Open".format(time.asctime()))
 		elif command == 'mmc':
 			message = b'METH_MPV_close'
-			logger.debug("METH MPV Close at {}".format(time.asctime()))
+			logger.debug("{} METH MPV Close".format(time.asctime()))
 		elif command == 'lmo':
 			message = b'LOX_MPV_open'
-			logger.debug("LOX MPV Open at {}".format(time.asctime()))
+			logger.debug("{} LOX MPV Open".format(time.asctime()))
 		elif command == 'lmc':
 			message = b'LOX_MPV_close'
-			logger.debug("LOX MPV Close at {}".format(time.asctime()))
+			logger.debug("{} LOX MPV Close".format(time.asctime()))
 		elif command == 'po':
 			message = b'PURGE_open'
-			logger.debug("Purge Open at {}".format(time.asctime()))
+			logger.debug("{} Purge Open".format(time.asctime()))
 		elif command == 'pc':
 			message = b'PURGE_close'
-			logger.debug("Purge Close at {}".format(time.asctime()))
+			logger.debug("{} Purge Close".format(time.asctime()))
 		elif command == 'vo':
 			message = b'VENTS_open'
-			logger.debug("Vents Open at {}".format(time.asctime()))
+			logger.debug("{} Vents Open".format(time.asctime()))
 		elif command == 'vc':
 			message = b'VENTS_close'
-			logger.debug("Vents Close at {}".format(time.asctime()))
+			logger.debug("{} Vents Close".format(time.asctime()))
 		elif command == 'mo':
 			message = b'MAIN_open'
-			logger.debug("Main Open at {}".format(time.asctime()))
+			logger.debug("{} Main Open".format(time.asctime()))
 		elif command == 'mc':
 			message = b'MAIN_close'
-			logger.debug("Main Close at {}".format(time.asctime()))
+			logger.debug("{} Main Close".format(time.asctime()))
 		elif command == 'dopen':
 			message = b'DUMP_open'
-			logger.debug("Dump Open at {}".format(time.asctime()))
+			logger.debug("{} Dump Open".format(time.asctime()))
 		elif command == 'dclose':
 			message = b'DUMP_close'
-			logger.debug("Dump Close at {}".format(time.asctime()))
-		elif command == 'ignon':
-			message = b'IGNITE_on'
-			logger.debug("Ignitor On at {}".format(time.asctime()))
-		elif command == 'ignoff':
-			message = b'IGNITE_off'
-			logger.debug("Ignitor Off at {}".format(time.asctime()))
+			logger.debug("{} Dump Close".format(time.asctime()))
 		elif command == 'abort':
 			message = b'abort'
-			logger.debug("aborting at {}".format(time.asctime()))
+			logger.debug("{} aborting".format(time.asctime()))
 		elif command == 'Ro7':
 			message = b'relay7_open'
-			logger.debug(" at {}".format(time.asctime()))
+			logger.debug("{} ".format(time.asctime()))
 		elif command == 'Rc7':
 			message = b'relay7_close'
-			logger.debug(" at {}".format(time.asctime()))
+			logger.debug("{} ".format(time.asctime()))
 
 		print('publishing: {}'.format(message))
 		self.client.publish(self.TOPIC_1,message)
+
+	
 
 	def get_info(self, data):
 		#print(data)
@@ -608,50 +618,57 @@ class Client(QMainWindow):
 		relay 7: Nothing
 		relay 8: PURGE
 		'''
+
 		if 'LOXHIOPEN' in data:
-			logger.debug("LOX HI OPEN at {}".format(time.strftime("(%H:%M:%S)", time.localtime())))
+			logger.debug("{} LOX HI OPEN".format(time.strftime("(%H:%M:%S)", time.localtime())))
 			self.logTextBox.append("  >  LOX HI OPEN!{}".format(time.strftime("\t     -\t(%H:%M:%S)", time.localtime())))
 			self.lox_hi_open_btn.setEnabled(False)
 			self.lox_hi_close_btn.setEnabled(True)
+			self.loxhivalve.setPixmap(QPixmap('pictures/hivalvegreen.png'))
 
 		elif 'METHHIOPEN' in data:
-			logger.debug("METH HI OPEN at {}".format(time.strftime("(%H:%M:%S)", time.localtime())))
+			logger.debug("{} METH HI OPEN".format(time.strftime("(%H:%M:%S)", time.localtime())))
 			self.logTextBox.append("  >  METH HI OPEN!{}".format(time.strftime("\t     -\t(%H:%M:%S)", time.localtime())))
 			self.meth_hi_open_btn.setEnabled(False)
 			self.meth_hi_close_btn.setEnabled(True)
+			self.ch4hivalve.setPixmap(QPixmap('pictures/hivalvegreen.png'))
 
 		elif 'METHVENTOPEN' in data:
-			logger.debug("METH VENT OPEN at {}".format(time.strftime("(%H:%M:%S)", time.localtime())))
+			logger.debug("{} METH VENT OPEN".format(time.strftime("(%H:%M:%S)", time.localtime())))
 			self.logTextBox.append("  >  METH VENT OPEN!{}".format(time.strftime("     -\t(%H:%M:%S)", time.localtime())))
 			self.meth_vent_open_btn.setEnabled(False)
 			self.meth_vent_close_btn.setEnabled(True)
+			self.ch4ventvalve.setPixmap(QPixmap('pictures/ventvalvered.png'))
 
 		elif 'LOXVENTOPEN' in data:
-			logger.debug("LOX VENT OPEN at {}".format(time.strftime("(%H:%M:%S)", time.localtime())))
+			logger.debug("{} LOX VENT OPEN".format(time.strftime("(%H:%M:%S)", time.localtime())))
 			self.logTextBox.append("  >  LOX VENT OPEN!{}".format(time.strftime("\t     -\t(%H:%M:%S)", time.localtime())))
 			self.lox_vent_open_btn.setEnabled(False)
 			self.lox_vent_close_btn.setEnabled(True)
+			self.loxventvalve.setPixmap(QPixmap('pictures/ventvalvered.png'))
 
 		elif 'METHMPVOPEN' in data:
-			logger.debug("METH MPV OPEN at {}".format(time.strftime("(%H:%M:%S)", time.localtime())))
+			logger.debug("{} METH MPV OPEN".format(time.strftime("(%H:%M:%S)", time.localtime())))
 			self.logTextBox.append("  >  METH MPV OPEN!{}".format(time.strftime("     -\t(%H:%M:%S)", time.localtime())))
 			self.meth_mpv_open_btn.setEnabled(False)
 			self.meth_mpv_close_btn.setEnabled(True)
+			self.ch4mpvvalve.setPixmap(QPixmap('pictures/mpvvalvered.png'))
 
 		elif 'LOXMPVOPEN' in data:
-			logger.debug("LOX MPV OPEN at {}".format(time.strftime("(%H:%M:%S)", time.localtime())))
+			logger.debug("{} LOX MPV OPEN".format(time.strftime("(%H:%M:%S)", time.localtime())))
 			self.logTextBox.append("  >  LOX MPV OPEN!{}".format(time.strftime("\t     -\t(%H:%M:%S)", time.localtime())))
 			self.lox_mpv_open_btn.setEnabled(False)
 			self.lox_mpv_close_btn.setEnabled(True)
+			self.loxmpvvalve.setPixmap(QPixmap('pictures/mpvvalvered.png'))
 
 		elif 'PURGEOPEN' in data:
-			logger.debug("PURGE OPEN at {}".format(time.strftime("(%H:%M:%S)", time.localtime())))
+			logger.debug("{} PURGE OPEN".format(time.strftime("(%H:%M:%S)", time.localtime())))
 			self.logTextBox.append("  >  PURGE OPEN!{}".format(time.strftime("\t     -\t(%H:%M:%S)", time.localtime())))
 			self.purge_open_btn.setEnabled(False)
 			self.purge_close_btn.setEnabled(True)
 
 		elif 'VENTSOPEN' in data:
-			logger.debug("VENTS OPEN at {}".format(time.strftime("(%H:%M:%S)", time.localtime())))
+			logger.debug("{} VENTS OPEN".format(time.strftime("(%H:%M:%S)", time.localtime())))
 			self.logTextBox.append("  >  VENTS OPEN!{}".format(time.strftime("\t     -\t(%H:%M:%S)", time.localtime())))
 			self.vents_open_btn.setEnabled(False)
 			self.vents_close_btn.setEnabled(True)
@@ -659,9 +676,11 @@ class Client(QMainWindow):
 			self.meth_vent_close_btn.setEnabled(True)
 			self.lox_vent_open_btn.setEnabled(False)
 			self.lox_vent_close_btn.setEnabled(True)
+			self.ch4ventvalve.setPixmap(QPixmap('pictures/ventvalvered.png'))
+			self.loxventvalve.setPixmap(QPixmap('pictures/ventvalvered.png'))
 
 		elif 'MAINOPEN' in data:
-			logger.debug("MAIN OPEN at {}".format(time.strftime("(%H:%M:%S)", time.localtime())))
+			logger.debug("{} MAIN OPEN".format(time.strftime("(%H:%M:%S)", time.localtime())))
 			self.logTextBox.append("  >  MAIN OPEN!{}".format(time.strftime("\t     -\t(%H:%M:%S)", time.localtime())))
 			self.mpv_open_btn.setEnabled(False)
 			self.mpv_close_btn.setEnabled(True)
@@ -669,23 +688,14 @@ class Client(QMainWindow):
 			self.meth_mpv_close_btn.setEnabled(True)
 			self.lox_mpv_open_btn.setEnabled(False)
 			self.lox_mpv_close_btn.setEnabled(True)
+			self.ch4mpvvalve.setPixmap(QPixmap('pictures/mpvvalvered.png'))
+			self.loxmpvvalve.setPixmap(QPixmap('pictures/mpvvalvered.png'))
 
 		elif 'DUMPOPEN' in data:
-			logger.debug("DUMP OPEN at {}".format(time.strftime("(%H:%M:%S)", time.localtime())))
+			logger.debug("{} DUMP OPEN".format(time.strftime("(%H:%M:%S)", time.localtime())))
 			self.logTextBox.append("  >  DUMP OPEN!{}".format(time.strftime("\t     -\t(%H:%M:%S)", time.localtime())))
 			self.dump_open_btn.setEnabled(False)
 			self.dump_close_btn.setEnabled(True)
-
-		elif 'DUMPOPEN' in data:
-			logger.debug("DUMP OPEN at {}".format(time.strftime("(%H:%M:%S)", time.localtime())))
-			self.logTextBox.append("  >  DUMP OPEN!{}".format(time.strftime("\t     -\t(%H:%M:%S)", time.localtime())))
-			self.dump_open_btn.setEnabled(False)
-			self.dump_close_btn.setEnabled(True)
-		elif 'IGNITEON' in data:
-			logger.debug("IGNITOR ON at {}".format(time.strftime("(%H:%M:%S)", time.localtime())))
-			self.logTextBox.append("  >  IGNITOR ON!{}".format(time.strftime("\t     -\t(%H:%M:%S)", time.localtime())))
-			self.ignite_on_btn.setEnabled(False)
-			self.ignite_off_btn.setEnabled(True)
 
 		elif 'R7ON' in data:
 			logger.debug("Relay_7_ON at {}".format(time.strftime("(%H:%M:%S)", time.localtime())))
@@ -694,55 +704,55 @@ class Client(QMainWindow):
 			self.sc7_btn.setEnabled(True)
 
 		elif 'LOXHICLOSE' in data:
-			logger.debug("LOX HI CLOSE at {}".format(time.strftime("(%H:%M:%S)", time.localtime())))
+			logger.debug("{} LOX HI CLOSE".format(time.strftime("(%H:%M:%S)", time.localtime())))
 			self.logTextBox.append("  >  LOX HI CLOSE!{}".format(time.strftime("\t     -\t(%H:%M:%S)", time.localtime())))
 			self.lox_hi_open_btn.setEnabled(True)
 			self.lox_hi_close_btn.setEnabled(False)
+			self.loxhivalve.setPixmap(QPixmap('pictures/hivalvered.png'))
 
 		elif 'METHHICLOSE' in data:
-			logger.debug("METH HI CLOSE at {}".format(time.strftime("(%H:%M:%S)", time.localtime())))
+			logger.debug("{} METH HI CLOSE".format(time.strftime("(%H:%M:%S)", time.localtime())))
 			self.logTextBox.append("  >  METH HI CLOSE!{}".format(time.strftime("\t     -\t(%H:%M:%S)", time.localtime())))
 			self.meth_hi_open_btn.setEnabled(True)
 			self.meth_hi_close_btn.setEnabled(False)
+			self.ch4hivalve.setPixmap(QPixmap('pictures/hivalvered.png'))
 
 		elif 'METHVENTCLOSE' in data:
-			logger.debug("METH VENT CLOSE at {}".format(time.strftime("(%H:%M:%S)", time.localtime())))
+			logger.debug("{} METH VENT CLOSE".format(time.strftime("(%H:%M:%S)", time.localtime())))
 			self.logTextBox.append("  >  METH VENT CLOSE!{}".format(time.strftime("     -\t(%H:%M:%S)", time.localtime())))
 			self.meth_vent_open_btn.setEnabled(True)
 			self.meth_vent_close_btn.setEnabled(False)
+			self.ch4ventvalve.setPixmap(QPixmap('pictures/ventvalvegreen.png'))
 
 		elif 'LOXVENTCLOSE' in data:
-			logger.debug("LOX VENT CLOSE at {}".format(time.strftime("(%H:%M:%S)", time.localtime())))
+			logger.debug("{} LOX VENT CLOSE".format(time.strftime("(%H:%M:%S)", time.localtime())))
 			self.logTextBox.append("  >  LOX VENT CLOSE!{}".format(time.strftime("     -\t(%H:%M:%S)", time.localtime())))
 			self.lox_vent_open_btn.setEnabled(True)
 			self.lox_vent_close_btn.setEnabled(False)
+			self.loxventvalve.setPixmap(QPixmap('pictures/ventvalvegreen.png'))
 
 		elif 'METHMPVCLOSE' in data:
-			logger.debug("METH MPV CLOSE at {}".format(time.strftime("(%H:%M:%S)", time.localtime())))
+			logger.debug("{} METH MPV CLOSE".format(time.strftime("(%H:%M:%S)", time.localtime())))
 			self.logTextBox.append("  >  METH MPV CLOSE!{}".format(time.strftime("     -\t(%H:%M:%S)", time.localtime())))
 			self.meth_mpv_open_btn.setEnabled(True)
 			self.meth_mpv_close_btn.setEnabled(False)
+			self.ch4mpvvalve.setPixmap(QPixmap('pictures/mpvvalvegreen.png'))
 
 		elif 'LOXMPVCLOSE' in data:
-			logger.debug("LOX MPV CLOSE at {}".format(time.strftime("(%H:%M:%S)", time.localtime())))
+			logger.debug("{} LOX MPV CLOSE".format(time.strftime("(%H:%M:%S)", time.localtime())))
 			self.logTextBox.append("  >  LOX MPV CLOSE!{}".format(time.strftime("\t     -\t(%H:%M:%S)", time.localtime())))
 			self.lox_mpv_open_btn.setEnabled(True)
 			self.lox_mpv_close_btn.setEnabled(False)
+			self.loxmpvvalve.setPixmap(QPixmap('pictures/mpvvalvegreen.png'))
 
 		elif 'PURGECLOSE' in data:
-			logger.debug("PURGE CLOSE at {}".format(time.strftime("(%H:%M:%S)", time.localtime())))
+			logger.debug("{} PURGE CLOSE".format(time.strftime("(%H:%M:%S)", time.localtime())))
 			self.logTextBox.append("  >  PURGE CLOSE!{}".format(time.strftime("\t     -\t(%H:%M:%S)", time.localtime())))
 			self.purge_open_btn.setEnabled(True)
 			self.purge_close_btn.setEnabled(False)
 
-		elif 'IGNITEOFF' in data:
-			logger.debug("IGNITOR OFF at {}".format(time.strftime("(%H:%M:%S)", time.localtime())))
-			self.logTextBox.append("  >  IGNITOR OFF!{}".format(time.strftime("\t     -\t(%H:%M:%S)", time.localtime())))
-			self.ignite_on_btn.setEnabled(True)
-			self.ignite_off_btn.setEnabled(False)
-
 		elif 'VENTSCLOSE' in data:
-			logger.debug("VENTS CLOSE at {}".format(time.strftime("(%H:%M:%S)", time.localtime())))
+			logger.debug("{} VENTS CLOSE".format(time.strftime("(%H:%M:%S)", time.localtime())))
 			self.logTextBox.append("  >  VENTS CLOSE!{}".format(time.strftime("\t     -\t(%H:%M:%S)", time.localtime())))
 			self.vents_open_btn.setEnabled(True)
 			self.vents_close_btn.setEnabled(False)
@@ -750,9 +760,11 @@ class Client(QMainWindow):
 			self.meth_vent_close_btn.setEnabled(False)
 			self.lox_vent_open_btn.setEnabled(True)
 			self.lox_vent_close_btn.setEnabled(False)
+			self.loxventvalve.setPixmap(QPixmap('pictures/ventvalvegreen.png'))
+			self.ch4ventvalve.setPixmap(QPixmap('pictures/ventvalvegreen.png'))
 
 		elif 'MAINCLOSE' in data:
-			logger.debug("MAIN CLOSE at {}".format(time.strftime("(%H:%M:%S)", time.localtime())))
+			logger.debug("{} MAIN CLOSE".format(time.strftime("(%H:%M:%S)", time.localtime())))
 			self.logTextBox.append("  >  MAIN CLOSE!{}".format(time.strftime("\t     -\t(%H:%M:%S)", time.localtime())))
 			self.mpv_open_btn.setEnabled(True)
 			self.mpv_close_btn.setEnabled(False)
@@ -760,15 +772,17 @@ class Client(QMainWindow):
 			self.meth_mpv_close_btn.setEnabled(False)
 			self.lox_mpv_open_btn.setEnabled(True)
 			self.lox_mpv_close_btn.setEnabled(False)
+			self.ch4mpvvalve.setPixmap(QPixmap('pictures/mpvvalvegreen.png'))
+			self.loxmpvvalve.setPixmap(QPixmap('pictures/mpvvalvegreen.png'))
 
 		elif 'DUMPCLOSE' in data:
-			logger.debug("DUMP CLOSE at {}".format(time.strftime("(%H:%M:%S)", time.localtime())))
+			logger.debug("{} DUMP CLOSE".format(time.strftime("(%H:%M:%S)", time.localtime())))
 			self.logTextBox.append("  >  DUMP CLOSE!{}".format(time.strftime("\t     -\t(%H:%M:%S)", time.localtime())))
 			self.dump_open_btn.setEnabled(True)
 			self.dump_close_btn.setEnabled(False)
 
 		elif 'ABORT' in data:
-			logger.debug("ABORTED at {}".format(time.strftime("(%H:%M:%S)", time.localtime())))
+			logger.debug("{} ABORTED".format(time.strftime("(%H:%M:%S)", time.localtime())))
 			self.logTextBox.append("  >  ABORTED!{}".format(time.strftime("\t     -\t(%H:%M:%S)", time.localtime())))
 			self.mpv_open_btn.setEnabled(True)
 			self.mpv_close_btn.setEnabled(False)
@@ -786,8 +800,6 @@ class Client(QMainWindow):
 			self.meth_hi_close_btn.setEnabled(False)
 			self.lox_hi_open_btn.setEnabled(True)
 			self.lox_hi_close_btn.setEnabled(False)
-			self.ignite_on_btn.setEnabled(True)
-			self.ignite_off_btn.setEnabled(False)
 			self.loxventvalve.setPixmap(QPixmap('pictures/ventvalvered.png'))
 			self.ch4ventvalve.setPixmap(QPixmap('pictures/ventvalvered.png'))
 			self.loxhivalve.setPixmap(QPixmap('pictures/hivalvered.png'))
@@ -802,52 +814,59 @@ class Client(QMainWindow):
 			self.sc7_btn.setEnabled(False)
 
 		elif '0b' in data:
-			logger.debug("Relay States at {}".format(time.strftime("(%H:%M:%S)", time.localtime())))
+			logger.debug("{} Relay States".format(time.strftime("(%H:%M:%S)", time.localtime())))
 			#self.logTextBox.append("  >  Relay States are {}!{}".format(data, time.strftime("\t     -\t(%H:%M:%S)", time.localtime())))
 			self.relay_state(data)
 
 		elif 'BW-I' in data: # Breakwire Intact
-			logger.debug("Breakwire Intact at {}".format(time.strftime("(%A)", time.localtime())))
+			logger.debug("{} Breakwire Intact".format(time.strftime("(%A)", time.localtime())))
 
 		elif 'BW-B' in data: # Breakwire Broken
-			logger.debug("Breakwire Broken at {}".format(time.strftime("(%A)", time.localtime())))
+			logger.debug("{} Breakwire Broken".format(time.strftime("(%A)", time.localtime())))
 
-		elif 'HALL_CH4_MPV_OPEN':
-			logger.debug("Hall Effect: CH4 MPV OPEN at {}".format(time.strftime("(%A)", time.localtime())))
-			self.ch4mpvvalve.setPixmap(QPixmap('pictures/mpvvalvered.png'))
-		elif 'HALL_LOX_MPV_OPEN':
-			logger.debug("Hall Effect: LOX MPV OPEN at {}".format(time.strftime("(%A)", time.localtime())))
-			self.loxmpvvalve.setPixmap(QPixmap('pictures/mpvvalvered.png'))
-		elif 'HALL_CH4_VENT_OPEN':
-			logger.debug("Hall Effect: CH4 VENT OPEN at {}".format(time.strftime("(%A)", time.localtime())))
-			self.ch4ventvalve.setPixmap(QPixmap('pictures/ventvalvered.png'))
-		elif 'HALL_LOX_VENT_OPEN':
-			logger.debug("Hall Effect: LOX VENT OPEN at {}".format(time.strftime("(%A)", time.localtime())))
-			self.loxventvalve.setPixmap(QPixmap('pictures/ventvalvered.png'))
-		elif 'HALL_CH4_HI_OPEN':
-			logger.debug("Hall Effect: CH4 HI OPEN at {}".format(time.strftime("(%A)", time.localtime())))
-			self.ch4hivalve.setPixmap(QPixmap('pictures/hivalvegreen.png'))
-		elif 'HALL_LOX_HI_OPEN':
-			logger.debug("Hall Effect: LOX HI OPEN at {}".format(time.strftime("(%A)", time.localtime())))
-			self.loxhivalve.setPixmap(QPixmap('pictures/hivalvegreen.png'))
-		elif 'HALL_CH4_MPV_CLOSED':
-			logger.debug("Hall Effect: CH4 MPV CLOSED at {}".format(time.strftime("(%A)", time.localtime())))
-			self.ch4mpvvalve.setPixmap(QPixmap('pictures/mpvvalvegreen.png'))
-		elif 'HALL_LOX_MPV_CLOSED':
-			logger.debug("Hall Effect: LOX MPV CLOSED at {}".format(time.strftime("(%A)", time.localtime())))
-			self.loxmpvvalve.setPixmap(QPixmap('pictures/mpvvalvegreen.png'))
-		elif 'HALL_CH4_VENT_CLOSED':
-			logger.debug("Hall Effect: CH4 VENT CLOSED at {}".format(time.strftime("(%A)", time.localtime())))
-			self.ch4ventvalve.setPixmap(QPixmap('pictures/ventvalvegreen.png'))
-		elif 'HALL_LOX_VENT_CLOSED':
-			logger.debug("Hall Effect: LOX VENT CLOSED at {}".format(time.strftime("(%A)", time.localtime())))
-			self.loxventvalve.setPixmap(QPixmap('pictures/ventvalvegreen.png'))
-		elif 'HALL_CH4_HI_CLOSED':
-			logger.debug("Hall Effect: CH4 HI CLOSED at {}".format(time.strftime("(%A)", time.localtime())))
-			self.ch4hivalve.setPixmap(QPixmap('pictures/hivalvered.png'))
-		elif 'HALL_LOX_HI_CLOSED':
-			logger.debug("Hall Effect: LOX HI CLOSED at {}".format(time.strftime("(%A)", time.localtime())))
-			self.loxhivalve.setPixmap(QPixmap('pictures/hivalvered.png'))
+	'''def relay_state(self, data):
+		if len(data) > 6:
+			data = data[4:-1]
+			print("Relay States are: {}".format(data))
+			while len(data) < 7:
+				data = '0' + data
+			print(data[6])
+			print(data)
+			if data[6] == 0: 
+				self.get_info('LOXHIOPEN')
+				self.lox_hi_open_btn.setEnabled(False)
+			else: 
+				self.get_info('LOXHICLOSE')
+				self.lox_hi_open_btn.setEnabled(False)
+			if data[5] == 0:
+				self.get_info('METHVENTCLOSE')
+			else: 
+				self.get_info('METHVENTOPEN') 
+			if data[4] == 0: 
+				self.get_info('METHHIOPEN')
+				self.meth_hi_open_btn.setEnabled(False)
+			else: 
+				self.get_info('METHHICLOSE')
+				self.meth_hi_open_btn.setEnabled(False)
+			if data[3] == 0:
+				self.get_info('LOXVENTCLOSE')
+			else: 
+				self.get_info('LOXVENTOPEN')
+			if data[2] == 0: 
+				self.get_info('METHMPVOPEN')
+			else: 
+				self.get_info('METHMPVCLOSE')
+			if data[1] == 0:
+				self.get_info('LOXMPVOPEN')
+			else: 
+				self.get_info('LOXMPVCLOSE') 
+			if data[0] == 0: 
+				self.get_info('')
+			else: 
+				self.get_info('') 
+			print(data)
+		else:
+			print("Data Small")'''
 		
 
 
@@ -917,7 +936,7 @@ class Client(QMainWindow):
 		self.connect_btn.setEnabled(False)
 		self.client.subscribe(self.TOPIC_2)
 		self.client.subscribe(self.TOPIC_3)
-		#self.client.publish(self.TOPIC_1,b'give_states')
+		self.client.publish(self.TOPIC_3,b'give_states')
 		return self.error
 
 	def on_disconnect(client, userdata,rc=0):
@@ -944,11 +963,11 @@ class Client(QMainWindow):
 			self.connection_status = True
 			self.logTextBox.append("  >  Connected{}".format(time.strftime("\t     -\t(%H:%M:%S)", time.localtime())))
 			#self.connectionsymbol.setPixmap(QPixmap('pictures/pinggreen.png'))
-			logger.debug("Connection Successful at {}".format(time.asctime()))
+			logger.debug("{} Connection Successful".format(time.asctime()))
 			self.client.loop_start()
 
 		except:
-			logger.debug("Connection Unsuccessful at {}".format(time.strftime("(%H:%M:%S)", time.localtime())))
+			logger.debug("{} Connection Unsuccessful".format(time.strftime("(%H:%M:%S)", time.localtime())))
 			self.logTextBox.append("  >  Connection Unsuccessful{}".format(time.strftime("\t     -\t(%H:%M:%S)", time.localtime())))
 			reply = QMessageBox.critical(self, "Connection Results", "Couldn't connect to {} at {}.\nMake sure server is listening.".format(self.server_address[0],self.server_address[1]),
 													QMessageBox.Cancel | QMessageBox.Retry)
@@ -966,7 +985,7 @@ class Client(QMainWindow):
 												QMessageBox.Yes | QMessageBox.No)
 		if choice == QMessageBox.Yes:
 			print("System Closed")
-			logger.debug("Application Exited at {}".format(time.strftime("(%H:%M:%S)", time.localtime())))
+			logger.debug("{} Application Exited".format(time.strftime("(%H:%M:%S)", time.localtime())))
 			sys.exit()
 		else:
 			self.logTextBox.append("> Exit Stopped{}".format(time.strftime("\t-         (%H:%M:%S)", time.localtime())))

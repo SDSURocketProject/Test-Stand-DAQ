@@ -1,22 +1,11 @@
 import RPi.GPIO as GPIO
 import paho.mqtt.client as mqtt
+import time
 
 HOST = "192.168.1.132"
 TOPIC_3 = "Hall_Effect"
 
-def on_connect(client, userdata, flags, rc):
-    print("Connected with result code {}".format(str(rc)))
-    error = rc
-    return error
 
-def on_disconnect(client, userdata, rc=0):
-    print("Connection lost")
-    client.loop_stop()
-
-client = mqtt.Client()
-client.on_connect = on_connect
-client.on_disconnect = on_disconnect
-client.connect(HOST, 1883, 60)
 
 # CH4 MPV:  BCM 15 / PHYS 10
 # LOX MPV:  BCM 18 / PHYS 12
@@ -50,45 +39,45 @@ def pin_name(num):
 
 def handler(pin_num):
     pin_index = pins.index(pin_num)
-    if(states[pin_index]):
+    if(not states[pin_index]):
         print("HALL EFFECT {}: OPEN".format(pin_name(pin_num)))
         if(pin_index == 0):
-            client.publish(TOPIC_3,b'HALL_CH4_MPV_OPEN')
+            client.publish(TOPIC_3,b'METHMPVOPEN')
             return;
         if(pin_index == 1):
-            client.publish(TOPIC_3,b'HALL_LOX_MPV_OPEN')
+            client.publish(TOPIC_3,b'LOXMPVOPEN')
             return;
         if(pin_index == 2):
-            client.publish(TOPIC_3,b'HALL_CH4_VENT_OPEN')
+            client.publish(TOPIC_3,b'METHVENTOPEN')
             return;
         if(pin_index == 3):
-            client.publish(TOPIC_3,b'HALL_LOX_VENT_OPEN')
+            client.publish(TOPIC_3,b'LOXVENTOPEN')
             return;
         if(pin_index == 4):
-            client.publish(TOPIC_3,b'HALL_CH4_HI_OPEN')
+            client.publish(TOPIC_3,b'METHHIOPEN')
             return;
         if(pin_index == 5):
-            client.publish(TOPIC_3,b'HALL_LOX_HI_OPEN')
+            client.publish(TOPIC_3,b'LOXHIOPEN')
             return;
     else:
         print("HALL EFFECT {}: CLOSED".format(pin_name(pin_num)))
         if(pin_index == 0):
-            client.publish(TOPIC_3,b'HALL_CH4_MPV_CLOSED')
+            client.publish(TOPIC_3,b'METHMPVCLOSE')
             return;
         if(pin_index == 1):
-            client.publish(TOPIC_3,b'HALL_LOX_MPV_CLOSED')
+            client.publish(TOPIC_3,b'LOXMPVCLOSE')
             return;
         if(pin_index == 2):
-            client.publish(TOPIC_3,b'HALL_CH4_VENT_CLOSED')
+            client.publish(TOPIC_3,b'METHVENTCLOSE')
             return;
         if(pin_index == 3):
-            client.publish(TOPIC_3,b'HALL_LOX_VENT_CLOSED')
+            client.publish(TOPIC_3,b'LOXVENTCLOSE')
             return;
         if(pin_index == 4):
-            client.publish(TOPIC_3,b'HALL_CH4_HI_CLOSED')
+            client.publish(TOPIC_3,b'METHHICLOSE')
             return;
         if(pin_index == 5):
-            client.publish(TOPIC_3,b'HALL_LOX_HI_CLOSED')
+            client.publish(TOPIC_3,b'LOXHICLOSE')
             return;
 
 # Load Starting Values
@@ -98,11 +87,42 @@ for i in range(6):
     GPIO.setup(pin,GPIO.IN)
     states[i] = GPIO.input(pin)
 
-while True:
+def on_connect(client, userdata, flags, rc):
+    print("Connected with result code {}".format(str(rc)))
     for i in range(6):
-        pin = pins[i]
-        if(states[i] != GPIO.input(pin)):
-            states[i] = GPIO.input(pin)
-            handler(pin)
+        handler(pins[i])
+    error = rc
+    return error
 
-client.loop_forever()
+def on_message(client, userdata, msg):
+    if str(msg.payload) == ""
+
+def on_disconnect(client, userdata, rc=0):
+    print("Connection lost")
+    client.loop_stop()
+
+client = mqtt.Client()
+client.on_connect = on_connect
+client.on_message = on_message
+client.on_disconnect = on_disconnect
+client.connect(HOST, 1883, 60)
+print("I did my stuff")
+
+epoch = time.time()
+
+def time_passed(oldepoch, amount):
+    return time.time() - oldepoch >= amount
+
+client.loop_start()
+
+while True:
+        for i in range(6):
+            pin = pins[i]
+            if(states[i] != GPIO.input(pin)):
+                states[i] = GPIO.input(pin)
+                handler(pin)
+            '''if time_passed(epoch, 5):
+                client.publish(TOPIC_3,b'NOPRINT6')
+                for i in range(6):
+                    handler(pins[i])
+                epoch = time.time()'''
